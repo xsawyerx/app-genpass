@@ -2,7 +2,66 @@ package App::Genpass;
 
 use Moose;
 
+# attributes for password generation
+has 'lowercase' => (
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ ( 'a'..'z' ) ] }
+);
+
+has 'uppercase' => (
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ ( 'A'..'Z' ) ] }
+);
+
+has 'numerical' => (
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ ( 0 .. 9 ) ] }
+);
+
+has 'unreadable' => (
+    is => 'ro', isa => 'ArrayRef[Str]', default => sub { [ split //, q{oO0l1I} ] }
+);
+
+has 'special' => (
+    is => 'ro', isa => 'ArrayRef[Str]', default => sub { [ split //, q{!@#$%^&*()} ] }
+);
+
+has [ qw( readable special verify ) ] => ( is => 'ro', isa => 'Boolean', default => 1  );
+
+has [ qw( length ) ] => ( is => 'ro', isa => 'Int', default => 10 );
+
+# attributes for the program
+has 'configfile' => ( is => 'ro', isa => 'Str' );
+
 our $VERSION = '0.01';
+
+sub BUILD {
+    my $self = shift;
+}
+
+sub generate {
+    my ( $self, $repeat ) = @_;
+    my $EMPTY = q{};
+    my @chars = ();
+
+    # adding all the combinations
+    push @chars, @{ $self->lowercase },
+                 @{ $self->uppercase },
+                 @{ $self->numerical },
+                 @{ $self->special   };
+
+    # removing the unreadable chars
+    if ( $self->readable ) {
+        @chars = grep {
+            local $a = $_;
+            none { $a eq $_ } @{ $self->unreadable };
+        } @chars;
+    }
+
+    # TODO: check the length and num of types
+
+    for ( 1 .. $repeat ) {
+        my $password = $EMPTY;
+
+    }
+}
 
 1;
 
