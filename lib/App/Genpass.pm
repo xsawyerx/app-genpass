@@ -41,10 +41,11 @@ sub _get_chars {
     my @chars = ();
 
     # adding all the combinations
-    push @chars, @{ $self->lowercase },
-                 @{ $self->uppercase },
-                 @{ $self->numerical },
-                 @{ $self->specials  };
+    push @chars, @{ $self->lowercase  },
+                 @{ $self->uppercase  },
+                 @{ $self->numerical  },
+                 @{ $self->specials   },
+                 @{ $self->unreadable };
 
     return \@chars;
 }
