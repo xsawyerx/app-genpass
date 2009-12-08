@@ -4,29 +4,51 @@ use strict;
 use warnings;
 
 use App::Genpass;
-use Test::More tests => 2;
+use Test::More tests => 4;
 use Test::Deep 'cmp_bag';
 
-my $app = App::Genpass->new(
+my %default_opts = (
     lowercase  => ['a'],
     uppercase  => ['A'],
     numerical  => [ 1 ],
     unreadable => ['o'],
-    specials   => ['!'],
-    readable   => 0,
 );
 
-my $chars = $app->_get_chars();
-cmp_bag( $chars, [ qw( a A 1 ! o ) ], 'got all chars we wanted' );
+my %options = (
+    'testing all with readable flag' => {
+        specials => ['!'],
+        readable => 1,
+        result   => [ qw( a A 1 ! ) ],
+    },
 
-$app = App::Genpass->new(
-    lowercase  => ['a'],
-    uppercase  => ['A'],
-    numerical  => [ 1 ],
-    unreadable => ['o'],
-    specials   => [   ],
-    readable   => 0,
+    'testing all without readable flag' => {
+        specials => ['!'],
+        readable => 0,
+        result   => [ qw( a A 1 ! o ) ],
+    },
+
+    'testing all with one removed with readable flag' => {
+        specials => [],
+        readable => 1,
+        result   => [ qw( a A 1 ) ],
+    },
+
+    'testing all with one removed without readable flag' => {
+        specials => [],
+        readable => 0,
+        result   => [ qw( a A 1 o ) ],
+    },
 );
 
-$chars = $app->_get_chars();
-cmp_bag( $chars, [ qw( a A 1 o ) ], 'can set empty chars' );
+while ( my ( $opt_name, $opt_data ) = ( each %options ) ) {
+    my $res = delete $opt_data->{'result'};
+    #use Data::Dumper; print Dumper $opt_data;
+    my $app = App::Genpass->new(
+        %{$opt_data},
+        %default_opts,
+    );
+
+    my $chars = $app->_get_chars();
+    cmp_bag( $chars, $res, $opt_name );
+}
+
