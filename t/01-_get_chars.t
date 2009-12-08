@@ -13,6 +13,7 @@ my $app = App::Genpass->new(
     numerical  => [ 1 ],
     unreadable => ['o'],
     specials   => ['!'],
+    readable   => 0,
 );
 
 my $chars = $app->_get_chars();
@@ -24,6 +25,7 @@ $app = App::Genpass->new(
     numerical  => [ 1 ],
     unreadable => ['o'],
     specials   => [   ],
+    readable   => 0,
 );
 
 $chars = $app->_get_chars();
