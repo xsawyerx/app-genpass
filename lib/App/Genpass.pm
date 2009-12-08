@@ -1,6 +1,7 @@
 package App::Genpass;
 
 use Moose;
+use List::AllUtils 'none';
 
 # attributes for password generation
 has 'lowercase' => (
@@ -47,14 +48,6 @@ sub _get_chars {
                  @{ $self->specials   },
                  @{ $self->unreadable };
 
-    return \@chars;
-}
-
-sub generate {
-    my ( $self, $repeat ) = @_;
-    my $EMPTY = q{};
-    my @chars = @{ $self->_get_chars };
-
     # removing the unreadable chars
     if ( $self->readable ) {
         @chars = grep {
@@ -62,6 +55,14 @@ sub generate {
             none { $a eq $_ } @{ $self->unreadable };
         } @chars;
     }
+
+    return \@chars;
+}
+
+sub generate {
+    my ( $self, $repeat ) = @_;
+    my $EMPTY = q{};
+    my @chars = @{ $self->_get_chars };
 
     # TODO: check the length and num of types
 
