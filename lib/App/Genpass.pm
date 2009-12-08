@@ -19,11 +19,11 @@ has 'unreadable' => (
     is => 'ro', isa => 'ArrayRef[Str]', default => sub { [ split //, q{oO0l1I} ] }
 );
 
-has 'special' => (
+has 'specials' => (
     is => 'ro', isa => 'ArrayRef[Str]', default => sub { [ split //, q{!@#$%^&*()} ] }
 );
 
-has [ qw( readable special verify ) ] => ( is => 'ro', isa => 'Boolean', default => 1  );
+has [ qw( readable special verify ) ] => ( is => 'ro', isa => 'Bool', default => 1  );
 
 has [ qw( length ) ] => ( is => 'ro', isa => 'Int', default => 10 );
 
@@ -36,16 +36,23 @@ sub BUILD {
     my $self = shift;
 }
 
-sub generate {
-    my ( $self, $repeat ) = @_;
-    my $EMPTY = q{};
+sub _get_chars {
+    my $self  = shift;
     my @chars = ();
 
     # adding all the combinations
     push @chars, @{ $self->lowercase },
                  @{ $self->uppercase },
                  @{ $self->numerical },
-                 @{ $self->special   };
+                 @{ $self->specials  };
+
+    return \@chars;
+}
+
+sub generate {
+    my ( $self, $repeat ) = @_;
+    my $EMPTY = q{};
+    my @chars = @{ $self->_get_chars };
 
     # removing the unreadable chars
     if ( $self->readable ) {
