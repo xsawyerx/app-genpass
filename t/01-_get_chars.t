@@ -15,5 +15,5 @@ my $app = App::Genpass->new(
     specials   => ['!'],
 );
 
-my @chars = split //, $app->_get_chars();
-cmp_bag( \@chars, [ qw( a A 1 ! o ) ], 'got all chars we wanted' );
+my $chars = $app->_get_chars();
+cmp_bag( $chars, [ qw( a A 1 ! o ) ], 'got all chars we wanted' );
