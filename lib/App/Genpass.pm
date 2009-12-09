@@ -64,8 +64,11 @@ sub generate {
     my $EMPTY = q{};
     my @chars = @{ $self->_get_chars };
 
+    $repeat ||= 1;
+
     # TODO: check the length and num of types
 
+    # generating the password
     for ( 1 .. $repeat ) {
         my $password = $EMPTY;
 
