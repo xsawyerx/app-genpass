@@ -1,7 +1,7 @@
 package App::Genpass;
 
 use Moose;
-use List::AllUtils 'none';
+use List::AllUtils qw( none shuffle );
 
 # attributes for password generation
 has 'lowercase' => (
@@ -54,6 +54,8 @@ sub _get_chars {
             local $a = $_;
             none { $a eq $_ } @{ $self->unreadable };
         } @chars;
+
+        # TODO: do we take out the special ones if readable flag is up?
     }
 
     return \@chars;
@@ -61,18 +63,34 @@ sub _get_chars {
 
 sub generate {
     my ( $self, $repeat ) = @_;
-    my $EMPTY = q{};
-    my @chars = @{ $self->_get_chars };
+    my $EMPTY     = q{};
+    my @chars     = @{ $self->_get_chars };
+    my $length    = $self->length;
+    my @passwords = ();
 
     $repeat ||= 1;
 
     # TODO: check the length and num of types
 
     # generating the password
-    for ( 1 .. $repeat ) {
+    foreach my $pass_iter ( 1 .. $repeat ) {
         my $password = $EMPTY;
 
+        while ( $length > length $password ) {
+            my $char   = $chars[int rand @chars];
+
+            $password .= $char;
+        }
+
+        # since the verification process creates a situation of ordered types
+        # (lowercase, uppercase, numerical, special, unreadable)
+        # we need to fix that by shuffling the string
+        # also, it's generally good to shuffle whatever outcome there is
+        $password = join '', shuffle( split //, $password );
+        push @passwords, $password;
     }
+
+    return wantarray ? \@passwords : shift @passwords;
 }
 
 1;
