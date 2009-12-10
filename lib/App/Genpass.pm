@@ -50,12 +50,11 @@ sub _get_chars {
 
     # removing the unreadable chars
     if ( $self->readable ) {
+        my @remove_chars = ( @{ $self->unreadable }, @{ $self->specials } );
         @chars = grep {
             local $a = $_;
-            none { $a eq $_ } @{ $self->unreadable };
+            none { $a eq $_ } @remove_chars;
         } @chars;
-
-        # TODO: do we take out the special ones if readable flag is up?
     }
 
     return \@chars;

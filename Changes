@@ -1,5 +1,8 @@
 Revision history for App-Genpass
 
+0.02    XX.XX.XX
+        - removing special chars, refactored nicely
+
 0.01    10.12.09
         First version, released on an unsuspecting world.
 
