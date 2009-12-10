@@ -28,7 +28,6 @@ foreach my $arrayref ( values %opts ) {
     );
 }
 
-# delete readable
 $app  = App::Genpass->new( %opts, readable => 1, length => $length );
 $pass = $app->generate();
 
