@@ -87,7 +87,6 @@ _DIE_MSG
 
     $repeat ||= 1;
 
-
     # generating the password
     foreach my $pass_iter ( 1 .. $repeat ) {
         my $password = $EMPTY;
@@ -99,14 +98,16 @@ _DIE_MSG
         }
 
         # since the verification process creates a situation of ordered types
-        # (lowercase, uppercase, numerical, special, unreadable)
-        # we need to fix that by shuffling the string
-        # also, it's generally good to shuffle whatever outcome there is
+        # (lowercase, uppercase, numerical, special)
+        # we need to shuffle the string
         $password = join '', shuffle( split //, $password );
+
+        $repeat == 1 && return $password;
+
         push @passwords, $password;
     }
 
-    return wantarray ? \@passwords : shift @passwords;
+    return wantarray ? @passwords : \@passwords;
 }
 
 1;
