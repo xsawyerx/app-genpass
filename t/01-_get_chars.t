@@ -18,7 +18,7 @@ my %options = (
     'testing all with readable flag' => {
         specials => ['!'],
         readable => 1,
-        result   => [ qw( a A 1 ! ) ],
+        result   => [ qw( a A 1 ) ],
     },
 
     'testing all without readable flag' => {
