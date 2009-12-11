@@ -41,7 +41,7 @@ our $VERSION = '0.01';
 
 sub _get_chars {
     my $self      = shift;
-    my @all_types = qw( lowercase uppercase numerical specials unreadable );
+    my @all_types = qw( lowercase uppercase numerical specials );
     my @chars     = ();
     my $types     = 0;
 
@@ -64,17 +64,22 @@ sub _get_chars {
             local $a = $_;
             none { $a eq $_ } @remove_chars;
         } @chars;
+
+        # removing one for specials
+        $types--;
     }
 
-    return ( $types, \@chars );
+    return [ $types, @chars ];
 }
 
 sub generate {
     my ( $self, $repeat ) = @_;
 
-    my $length    = $self->length;
-    my @passwords = ();
-    my $EMPTY     = q{};
+    my $length        = $self->length;
+    my $verify        = $self->verify;
+    my @passwords     = ();
+    my @verifications = ();
+    my $EMPTY         = q{};
 
     my ( $num_of_types, @chars ) = @{ $self->_get_chars };
 
@@ -87,12 +92,20 @@ _DIE_MSG
 
     $repeat ||= 1;
 
-    # generating the password
+    # each password iteration needed
     foreach my $pass_iter ( 1 .. $repeat ) {
         my $password = $EMPTY;
 
+        # generating the password
         while ( $length > length $password ) {
             my $char   = $chars[int rand @chars];
+
+            # for verifying, we just check that it has small capital letters
+            # if that doesn't work, we keep asking it to get a new random one
+            # the check if it has large capital letters and so on
+            if ($verify) {
+
+            }
 
             $password .= $char;
         }
