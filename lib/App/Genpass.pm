@@ -1,7 +1,7 @@
 package App::Genpass;
 
 use Moose;
-use List::AllUtils qw( none shuffle );
+use List::AllUtils qw( any none shuffle );
 
 # attributes for password generation
 has 'lowercase' => (
@@ -43,13 +43,13 @@ sub _get_chars {
     my $self      = shift;
     my @all_types = qw( lowercase uppercase numerical specials );
     my @chars     = ();
-    my $types     = 0;
+    my @types     = ();
 
     # adding all the combinations
     foreach my $type (@all_types) {
         if ( my $ref = $self->$type ) {
             push @chars, @{$ref};
-            $types++;
+            push @types, $type;
         }
     }
 
@@ -65,11 +65,12 @@ sub _get_chars {
             none { $a eq $_ } @remove_chars;
         } @chars;
 
-        # removing one for specials
-        $types--;
+        # removing specials
+        pop @types;
     }
 
-    return [ $types, @chars ];
+    # make both refs
+    return [ \@types, @chars ];
 }
 
 sub generate {
@@ -81,7 +82,10 @@ sub generate {
     my @verifications = ();
     my $EMPTY         = q{};
 
-    my ( $num_of_types, @chars ) = @{ $self->_get_chars };
+    my ( $char_types, @chars ) = @{ $self->_get_chars };
+
+    my @char_types   = @{$char_types};
+    my $num_of_types = scalar @char_types;
 
     if ( $num_of_types > $length ) {
         die <<"_DIE_MSG";
@@ -94,17 +98,23 @@ _DIE_MSG
 
     # each password iteration needed
     foreach my $pass_iter ( 1 .. $repeat ) {
-        my $password = $EMPTY;
+        my $password  = $EMPTY;
+        my $char_type = shift @char_types;
 
         # generating the password
         while ( $length > length $password ) {
-            my $char   = $chars[int rand @chars];
+            my $char = $chars[ int rand @chars ];
 
             # for verifying, we just check that it has small capital letters
             # if that doesn't work, we keep asking it to get a new random one
             # the check if it has large capital letters and so on
-            if ($verify) {
+            if ( $verify && $char_type ) {
+                # verify $char_type
+                while ( ! any { $_ eq $char } @{ $self->$char_type } ) {
+                    $char = $chars[ int rand @chars ];
+                }
 
+                $char_type = scalar @char_types > 0 ? shift @char_types : '';
             }
 
             $password .= $char;
