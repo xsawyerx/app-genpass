@@ -40,34 +40,44 @@ has 'configfile' => ( is => 'ro', isa => 'Str' );
 our $VERSION = '0.01';
 
 sub _get_chars {
-    my $self  = shift;
-    my @chars = ();
+    my $self      = shift;
+    my @all_types = qw( lowercase uppercase numerical specials unreadable );
+    my @chars     = ();
+    my $types     = 0;
 
     # adding all the combinations
-    push @chars, @{ $self->lowercase  },
-                 @{ $self->uppercase  },
-                 @{ $self->numerical  },
-                 @{ $self->specials   },
-                 @{ $self->unreadable };
+    foreach my $type (@all_types) {
+        if ( my $ref = $self->$type ) {
+            push @chars, @{$ref};
+            $types++;
+        }
+    }
 
     # removing the unreadable chars
     if ( $self->readable ) {
-        my @remove_chars = ( @{ $self->unreadable }, @{ $self->specials } );
+        my @remove_chars = (
+            @{ $self->unreadable },
+            @{ $self->specials   },
+        );
+
         @chars = grep {
             local $a = $_;
             none { $a eq $_ } @remove_chars;
         } @chars;
     }
 
-    return \@chars;
+    return ( $types, \@chars );
 }
 
 sub generate {
     my ( $self, $repeat ) = @_;
-    my $EMPTY     = q{};
-    my @chars     = @{ $self->_get_chars };
+
     my $length    = $self->length;
     my @passwords = ();
+    my $EMPTY     = q{};
+
+    my ( $types, @chars ) = @{ $self->_get_chars };
+
 
     $repeat ||= 1;
 
