@@ -1,3 +1,4 @@
 test for the wantarray options
 documentation documentation documentation
 test die msg for num_of_types > length
+replace die with croak
