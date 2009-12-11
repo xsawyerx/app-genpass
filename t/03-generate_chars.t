@@ -7,7 +7,7 @@ use warnings;
 
 use App::Genpass;
 use List::MoreUtils 'any';
-use Test::More tests => 5 + 3;
+use Test::More tests => 4 + 3;
 
 sub test_types {
     my ( $app, @types ) = @_;
@@ -32,8 +32,8 @@ sub test_types {
 }
 
 
+my @all_types      = qw( lowercase uppercase numerical specials );
 my @readable_types = qw( lowercase uppercase numerical );
-my @all_types      = qw( lowercase uppercase numerical specials unreadable );
 
 my $app = App::Genpass->new( readable => 0, length => 4 );
 diag('testing all types');
