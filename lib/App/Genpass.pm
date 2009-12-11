@@ -76,12 +76,17 @@ sub generate {
     my @passwords = ();
     my $EMPTY     = q{};
 
-    my ( $types, @chars ) = @{ $self->_get_chars };
+    my ( $num_of_types, @chars ) = @{ $self->_get_chars };
 
+    if ( $num_of_types > $length ) {
+        die <<"_DIE_MSG";
+You wanted a longer password that the variety of characters you've selected.
+You requested $num_of_types types of characters but only have $length length.
+_DIE_MSG
+    }
 
     $repeat ||= 1;
 
-    # TODO: check the length and num of types
 
     # generating the password
     foreach my $pass_iter ( 1 .. $repeat ) {
