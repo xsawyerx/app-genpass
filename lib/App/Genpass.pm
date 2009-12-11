@@ -17,14 +17,20 @@ has 'numerical' => (
 );
 
 has 'unreadable' => (
-    is => 'ro', isa => 'ArrayRef[Str]', default => sub { [ split //, q{oO0l1I} ] }
+    is      => 'ro',
+    isa     => 'ArrayRef[Str]',
+    default => sub { [ split //, q{oO0l1I} ] },
 );
 
 has 'specials' => (
-    is => 'ro', isa => 'ArrayRef[Str]', default => sub { [ split //, q{!@#$%^&*()} ] }
+    is      => 'ro',
+    isa     => 'ArrayRef[Str]',
+    default => sub { [ split //, q{!@#$%^&*()} ] },
 );
 
-has [ qw( readable special verify ) ] => ( is => 'ro', isa => 'Bool', default => 1  );
+has [ qw( readable special verify ) ] => (
+    is => 'ro', isa => 'Bool', default => 1
+);
 
 has [ qw( length ) ] => ( is => 'ro', isa => 'Int', default => 10 );
 
@@ -32,10 +38,6 @@ has [ qw( length ) ] => ( is => 'ro', isa => 'Int', default => 10 );
 has 'configfile' => ( is => 'ro', isa => 'Str' );
 
 our $VERSION = '0.01';
-
-sub BUILD {
-    my $self = shift;
-}
 
 sub _get_chars {
     my $self  = shift;
