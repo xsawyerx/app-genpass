@@ -4,14 +4,13 @@ use strict;
 use warnings;
 
 use App::Genpass;
-use Test::More tests => 12;
+use Test::More tests => 11;
 use List::MoreUtils qw( any none );
 
 my %opts = (
     lowercase  => ['a'],
     uppercase  => ['A'],
-    numerical  => [ 1 ],
-    unreadable => ['o'],
+    numerical  => [ 2 ],
     specials   => ['!'],
 );
 
@@ -31,8 +30,8 @@ foreach my $arrayref ( values %opts ) {
 $app  = App::Genpass->new( %opts, readable => 1, length => $length );
 $pass = $app->generate();
 
+my $unreadable = 'o';
 my $special    = shift @{ delete $opts{'specials'}   };
-my $unreadable = shift @{ delete $opts{'unreadable'} };
 
 cmp_ok( length $pass, '==', $length, 'correct length' );
 foreach my $arrayref ( values %opts ) {
