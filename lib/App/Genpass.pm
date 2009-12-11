@@ -37,7 +37,7 @@ has [ qw( length ) ] => ( is => 'ro', isa => 'Int', default => 10 );
 # attributes for the program
 has 'configfile' => ( is => 'ro', isa => 'Str' );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub _get_chars {
     my $self      = shift;
@@ -143,7 +143,7 @@ App::Genpass - Quickly create secure passwords
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =head1 SYNOPSIS
 
@@ -158,9 +158,12 @@ Perhaps a little code snippet.
 
 =head1 DESCRIPTION
 
-If you've ever needed to create 10 (or even 10,000) passwords on the fly with varying preferences (lowercase, uppercase, no confusing characters, special characters, minimum length, etc.), you know it can become a pretty pesky task.
+If you've ever needed to create 10 (or even 10,000) passwords on the fly with
+varying preferences (lowercase, uppercase, no confusing characters, special
+characters, minimum length, etc.), you know it can become a pretty pesky task.
 
-This script makes it possible to create flexible and secure passwords, quickly and easily.
+This script makes it possible to create flexible and secure passwords, quickly
+and easily.
 
 At some point it will support configuration files.
 
@@ -178,8 +181,8 @@ Sawyer X, C<< <xsawyerx at cpan.org> >>
 =head1 BUGS AND LIMITATIONS
 
 Please report any bugs or feature requests to C<bug-app-genpass at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=App-Genpass>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=App-Genpass>.
+I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 =head1 SUPPORT
 

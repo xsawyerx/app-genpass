@@ -1,7 +1,14 @@
 Revision history for App-Genpass
 
-0.02    XX.XX.XX
+0.02    11.12.09
         - removing special chars, refactored nicely
+        - added verification process
+        - more tests
+        - rewrote some tests
+        - fixed bug that appeared in original genpass, where unreadable chars
+          would be inserted into the chars array twice
+        - removed BUILD
+        - adding test for number of types wanted with a die
 
 0.01    10.12.09
         First version, released on an unsuspecting world.
