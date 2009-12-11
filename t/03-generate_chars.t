@@ -35,10 +35,10 @@ sub test_types {
 my @readable_types = qw( lowercase uppercase numerical );
 my @all_types      = qw( lowercase uppercase numerical specials unreadable );
 
-my $app = App::Genpass->new( readable => 0, length => 50 );
+my $app = App::Genpass->new( readable => 0, length => 4 );
 diag('testing all types');
 test_types( $app, @all_types );
 
 diag('testing readable types');
-$app = App::Genpass->new( length => 50 );
+$app = App::Genpass->new( length => 3 );
 test_types( $app, @readable_types );
