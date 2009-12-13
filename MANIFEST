@@ -4,5 +4,11 @@ MANIFEST
 README
 lib/App/Genpass.pm
 t/00-load.t
+t/01-_get_chars.t
+t/02-basic_generate.t
+t/03-generate_chars.t
 t/pod-coverage.t
 t/pod.t
+Makefile.PL
+LICENSE
+META.yml

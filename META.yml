@@ -1,0 +1,24 @@
+---
+name: App-Genpass
+version: 0.02
+author:
+  - 'Sawyer X <xsawyerx@cpan.org>'
+abstract: Quickly create secure passwords
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+build_requires:
+  List::AllUtils: 0
+  Moose: 0
+  Test::Deep: 0
+  Test::More: 0
+configure_requires:
+  Module::Build: 0.35
+provides:
+  App::Genpass:
+    file: lib/App/Genpass.pm
+    version: 0.02
+generated_by: Module::Build version 0.35
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
