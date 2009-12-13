@@ -147,14 +147,13 @@ Version 0.02
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use App::Genpass;
 
-    my $foo = App::Genpass->new();
-    ...
+    my $genpass = App::Genpass->new();
+    print $genpass->generate, "\n";
+
+    $genpass = App::Genpass->new( readable => 0, length => 20 );
+    print map { "$_\n" } $genpass->generate(10);
 
 =head1 DESCRIPTION
 
@@ -169,10 +168,13 @@ At some point it will support configuration files.
 
 =head1 SUBROUTINES/METHODS
 
-=head1 EXPORT
+=head2 new
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+Creates a new instance. It gets a lot of options.
+
+=head2 generate
+
+This method generates the password.
 
 =head1 AUTHOR
 
@@ -195,6 +197,10 @@ You can also look for information at:
 
 =over 4
 
+=item * Github: App::Genpass repository
+
+L<http://github.com/xsawyerx/app-genpass>
+
 =item * RT: CPAN's request tracker
 
 L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=App-Genpass>
@@ -212,9 +218,6 @@ L<http://cpanratings.perl.org/d/App-Genpass>
 L<http://search.cpan.org/dist/App-Genpass/>
 
 =back
-
-
-=head1 ACKNOWLEDGEMENTS
 
 =head1 LICENSE AND COPYRIGHT
 
