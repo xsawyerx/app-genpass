@@ -8,10 +8,15 @@ my $builder = Module::Build->new(
     dist_author         => q{Sawyer X <xsawyerx@cpan.org>},
     dist_version_from   => 'lib/App/Genpass.pm',
     build_requires => {
-        'Test::More' => 0,
+        'Test::More'     => 0,
+        'Test::Deep'     => 0,
+        'Moose'          => 0,
+        'List::AllUtils' => 0,
     },
-    add_to_cleanup      => [ 'App-Genpass-*' ],
+    add_to_cleanup     => [ 'App-Genpass-*' ],
     create_makefile_pl => 'traditional',
+    create_readme      => 1,
+    create_license     => 1,
 );
 
 $builder->create_build_script();
