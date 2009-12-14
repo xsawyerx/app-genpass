@@ -1,5 +1,9 @@
 Revision history for App-Genpass
 
+0.03    14.12.09
+        - fixed small bug in password repetition
+        - adding test that statistically catches it
+
 0.02    11.12.09
         - removing special chars, refactored nicely
         - added verification process

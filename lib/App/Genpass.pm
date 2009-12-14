@@ -37,7 +37,7 @@ has [ qw( length ) ] => ( is => 'ro', isa => 'Int', default => 10 );
 # attributes for the program
 has 'configfile' => ( is => 'ro', isa => 'Str' );
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub _get_chars {
     my $self      = shift;
@@ -128,6 +128,8 @@ _DIE_MSG
         $repeat == 1 && return $password;
 
         push @passwords, $password;
+
+        @char_types = @{$char_types};
     }
 
     return wantarray ? @passwords : \@passwords;
@@ -143,7 +145,7 @@ App::Genpass - Quickly create secure passwords
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =head1 SYNOPSIS
 
