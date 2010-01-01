@@ -3,6 +3,7 @@ Revision history for App-Genpass
 0.04    01.01.09
         - replaced die with Carp's croak
         - added test for wantarray options
+        - adding documentation for wantarray options
 
 0.03    14.12.09
         - fixed small bug in password repetition
