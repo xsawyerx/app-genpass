@@ -2,7 +2,7 @@ NAME
     App::Genpass - Quickly create secure passwords
 
 VERSION
-    Version 0.03
+    Version 0.04
 
 SYNOPSIS
         use App::Genpass;
@@ -11,7 +11,7 @@ SYNOPSIS
         print $genpass->generate, "\n";
 
         $genpass = App::Genpass->new( readable => 0, length => 20 );
-        print map { "$_\n" } $genpass->generate(10);
+        print "$_\n" for $genpass->generate(10);
 
 DESCRIPTION
     If you've ever needed to create 10 (or even 10,000) passwords on the fly
@@ -22,14 +22,20 @@ DESCRIPTION
     This script makes it possible to create flexible and secure passwords,
     quickly and easily.
 
-    At some point it will support configuration files.
+        use App::Genpass;
+        my $genpass = App::Genpass->new();
+
+        my $single_password    = $genpass->generate(1);  # returns scalar
+        my @single_password    = $genpass->generate(1);  # returns array
+        my @multiple_passwords = $genpass->generate(10); # returns array again
+        my $multiple_passwords = $genpass->generate(10); # returns arrayref
 
 SUBROUTINES/METHODS
   new
     Creates a new instance. It gets a lot of options.
 
   generate
-    This method generates the password.
+    This method generates the password or passwords.
 
 AUTHOR
     Sawyer X, "<xsawyerx at cpan.org>"

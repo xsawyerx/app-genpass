@@ -5,6 +5,7 @@ WriteMakefile
           'NAME' => 'App::Genpass',
           'VERSION_FROM' => 'lib/App/Genpass.pm',
           'PREREQ_PM' => {
+                           'Carp' => 0,
                            'List::AllUtils' => 0,
                            'Moose' => 0,
                            'Test::Deep' => 0,
