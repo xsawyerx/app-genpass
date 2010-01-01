@@ -156,7 +156,7 @@ Version 0.03
     print $genpass->generate, "\n";
 
     $genpass = App::Genpass->new( readable => 0, length => 20 );
-    print map { "$_\n" } $genpass->generate(10);
+    print "$_\n" for $genpass->generate(10);
 
 =head1 DESCRIPTION
 
@@ -167,7 +167,14 @@ characters, minimum length, etc.), you know it can become a pretty pesky task.
 This script makes it possible to create flexible and secure passwords, quickly
 and easily.
 
-At some point it will support configuration files.
+    use App::Genpass;
+    my $genpass = App::Genpass->new();
+
+    my $single_password    = $genpass->generate(1);  # returns scalar
+    my @single_password    = $genpass->generate(1);  # returns array
+    my @multiple_passwords = $genpass->generate(10); # returns array again
+    my $multiple_passwords = $genpass->generate(10); # returns arrayref
+
 
 =head1 SUBROUTINES/METHODS
 
@@ -177,7 +184,7 @@ Creates a new instance. It gets a lot of options.
 
 =head2 generate
 
-This method generates the password.
+This method generates the password or passwords.
 
 =head1 AUTHOR
 
