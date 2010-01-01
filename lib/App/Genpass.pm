@@ -1,5 +1,6 @@
 package App::Genpass;
 
+use Carp;
 use Moose;
 use List::AllUtils qw( any none shuffle );
 
@@ -88,7 +89,7 @@ sub generate {
     my $num_of_types = scalar @char_types;
 
     if ( $num_of_types > $length ) {
-        die <<"_DIE_MSG";
+        croak <<"_DIE_MSG";
 You wanted a longer password that the variety of characters you've selected.
 You requested $num_of_types types of characters but only have $length length.
 _DIE_MSG
