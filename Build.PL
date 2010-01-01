@@ -10,6 +10,7 @@ my $builder = Module::Build->new(
     build_requires => {
         'Test::More'     => 0,
         'Test::Deep'     => 0,
+        'Carp'           => 0,
         'Moose'          => 0,
         'List::AllUtils' => 0,
     },
