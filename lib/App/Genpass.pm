@@ -6,15 +6,15 @@ use List::AllUtils qw( any none shuffle );
 
 # attributes for password generation
 has 'lowercase' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ ( 'a'..'z' ) ] }
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 'a'..'z' ] }
 );
 
 has 'uppercase' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ ( 'A'..'Z' ) ] }
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 'A'..'Z' ] }
 );
 
 has 'numerical' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ ( 0 .. 9 ) ] }
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 0 .. 9 ] }
 );
 
 has 'unreadable' => (
@@ -38,7 +38,7 @@ has [ qw( length ) ] => ( is => 'ro', isa => 'Int', default => 10 );
 # attributes for the program
 has 'configfile' => ( is => 'ro', isa => 'Str' );
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub _get_chars {
     my $self      = shift;
@@ -146,7 +146,7 @@ App::Genpass - Quickly create secure passwords
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =head1 SYNOPSIS
 
@@ -182,9 +182,107 @@ and easily.
 
 Creates a new instance. It gets a lot of options.
 
+=head3 flags
+
+These are boolean flags which change the way App::Genpass works.
+
+=over 4
+
+=item readable
+
+Use only readable characters, excluding confusing characters: "o", "O", "0", "l", "1", "I".
+
+You can overwrite what characters are considered unreadable under "character attributes" below.
+
+Default: on.
+
+=item special
+
+Inculde special characters: "!", "@", "#", "$", "%", "^", "&", "*", "(", ")"
+
+Default: on.
+
+=item verify
+
+Verify that every type of character wanted (lowercase, uppercase, numerical, specials, etc.) are present in the password. This makes it just a tad slower, but it guarantees the result. Best keep it on.
+
+Default: on.
+
+=back
+
+=head3 attributes
+
+=over 4
+
+=item length
+
+How long will the passwords be.
+
+Default: 10.
+
+=back
+
+=head3 character attributes
+
+These are the attributes that control the types of characters. One can change which lowercase characters will be used or whether they will be used at all, for example.
+
+    # only a,b,c,d,e,g will be consdered lowercase and no uppercase at all
+    my $gp = App::Genpass->new( lowercase => [ 'a' .. 'g' ], uppercase => [] );
+
+=over 4
+
+=item lowercase
+
+All lowercase characters, excluding those that are considered unreadable if the readable flag (described above) is turned on.
+
+Default: [ 'a' .. 'z' ] (not including excluded chars).
+
+=item uppercase
+
+All uppercase characters, excluding those that are considered unreadable if the readable flag (described above) is turned on.
+
+Default: [ 'A' .. 'Z' ] (not including excluded chars).
+
+=item numerical
+
+All numerical characters, excluding those that are considered unreadable if the readable flag (described above) is turned on.
+
+Default: [ '0' .. '9' ] (not including excluded chars).
+
+=item unreadable
+
+All characters which are considered (to me) unreadable. You can change this to what you consider unreadable characters. For example:
+
+    my $gp = App::Genpass->new( unreadable => [ qw(jlvV) ] );
+
+After all the characters are set, unreadable characters will be removed from all sets.
+
+Thus, unreadable characters override all other sets. You can make unreadable characters not count by using the <code>readable => 0</code> option, described by the <I>readable</I> flag above.
+
+=item specials
+
+All special characters.
+
+Default: [ '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' ].
+
+(not including excluded chars)
+
+=back
+
 =head2 generate
 
 This method generates the password or passwords.
+
+It accepts only one parameter, which is how many passwords to generate.
+
+    $gp = App::Genpass->new();
+    my @passwords = $gp->generate(300); # 300 passwords to go
+
+This method tries to be tricky and DWIM (or rather, DWYM). That is, if you request it to generate only one password and use a scalar (<code>my $p = $gp->generate(1)</code>), it will return a single password.
+
+However, if you try to generate multiple passwords and use a scalar (<code>my $p = $gp->generate(30)</code>), it will return an arrayref for the passwords.
+
+Generating passwords with arrays (<code>my @p = $gp->generate(...)</code>) will always return an array of the passwords, even if it's a single password.
 
 =head1 AUTHOR
 

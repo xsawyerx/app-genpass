@@ -1,5 +1,9 @@
 Revision history for App-Genpass
 
+0.05    01.01.09
+        - added documentation for all attributes
+        - first stable finished release
+
 0.04    01.01.09
         - replaced die with Carp's croak
         - added test for wantarray options
