@@ -47,7 +47,7 @@ SUBROUTINES/METHODS
         Default: on.
 
     special
-        Inculde special characters: "!", "@", "#", "$", "%", "^", "&", "*",
+        Include special characters: "!", "@", "#", "$", "%", "^", "&", "*",
         "(", ")"
 
         Default: on.
