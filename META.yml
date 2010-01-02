@@ -1,6 +1,6 @@
 ---
 name: App-Genpass
-version: 0.04
+version: 0.05
 author:
   - 'Sawyer X <xsawyerx@cpan.org>'
 abstract: Quickly create secure passwords
@@ -18,7 +18,7 @@ configure_requires:
 provides:
   App::Genpass:
     file: lib/App/Genpass.pm
-    version: 0.04
+    version: 0.05
 generated_by: Module::Build version 0.35
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
