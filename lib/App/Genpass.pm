@@ -257,7 +257,7 @@ All characters which are considered (to me) unreadable. You can change this to w
 
 After all the characters are set, unreadable characters will be removed from all sets.
 
-Thus, unreadable characters override all other sets. You can make unreadable characters not count by using the <code>readable => 0</code> option, described by the <I>readable</I> flag above.
+Thus, unreadable characters override all other sets. You can make unreadable characters not count by using the <code>readable => 0</code> option, described by the I<readable> flag above.
 
 =item specials
 
