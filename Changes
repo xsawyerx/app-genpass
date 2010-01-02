@@ -1,5 +1,8 @@
 Revision history for App-Genpass
 
+0.06
+        - POD fix C<> vs. <code></code>
+
 0.05    01.01.09
         - added documentation for all attributes
         - first stable finished release
