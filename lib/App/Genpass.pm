@@ -198,7 +198,7 @@ Default: on.
 
 =item special
 
-Inculde special characters: "!", "@", "#", "$", "%", "^", "&", "*", "(", ")"
+Include special characters: "!", "@", "#", "$", "%", "^", "&", "*", "(", ")"
 
 Default: on.
 
