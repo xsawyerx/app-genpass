@@ -257,7 +257,7 @@ All characters which are considered (to me) unreadable. You can change this to w
 
 After all the characters are set, unreadable characters will be removed from all sets.
 
-Thus, unreadable characters override all other sets. You can make unreadable characters not count by using the C<readable =&lt; 0> option, described by the I<readable> flag above.
+Thus, unreadable characters override all other sets. You can make unreadable characters not count by using the C<readable =&gt; 0> option, described by the I<readable> flag above.
 
 =item specials
 
@@ -278,11 +278,11 @@ It accepts only one parameter, which is how many passwords to generate.
     $gp = App::Genpass->new();
     my @passwords = $gp->generate(300); # 300 passwords to go
 
-This method tries to be tricky and DWIM (or rather, DWYM). That is, if you request it to generate only one password and use a scalar (<code>my $p = $gp->generate(1)</code>), it will return a single password.
+This method tries to be tricky and DWIM (or rather, DWYM). That is, if you request it to generate only one password and use a scalar (C<my $p = $gp-&gt;generate(1)>), it will return a single password.
 
-However, if you try to generate multiple passwords and use a scalar (<code>my $p = $gp->generate(30)</code>), it will return an arrayref for the passwords.
+However, if you try to generate multiple passwords and use a scalar (C<my $p = $gp-&gt;generate(30)>), it will return an arrayref for the passwords.
 
-Generating passwords with arrays (<code>my @p = $gp->generate(...)</code>) will always return an array of the passwords, even if it's a single password.
+Generating passwords with arrays (C<my @p = $gp-&gt;generate(...)>) will always return an array of the passwords, even if it's a single password.
 
 =head1 AUTHOR
 
