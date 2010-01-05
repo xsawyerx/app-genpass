@@ -14,19 +14,19 @@ has 'uppercase' => (
 );
 
 has 'numerical' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 0 .. 9 ] }
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ '0' .. '9' ] }
 );
 
 has 'unreadable' => (
     is      => 'ro',
     isa     => 'ArrayRef[Str]',
-    default => sub { [ split //, q{oO0l1I} ] },
+    default => sub { [ split //sm, q{oO0l1I} ] },
 );
 
 has 'specials' => (
     is      => 'ro',
     isa     => 'ArrayRef[Str]',
-    default => sub { [ split //, q{!@#$%^&*()} ] },
+    default => sub { [ split //sm, q{!@#$%^&*()} ] },
 );
 
 has [ qw( readable special verify ) ] => (
@@ -115,7 +115,8 @@ _DIE_MSG
                     $char = $chars[ int rand @chars ];
                 }
 
-                $char_type = scalar @char_types > 0 ? shift @char_types : '';
+                $char_type =
+                    scalar @char_types > 0 ? shift @char_types : $EMPTY;
             }
 
             $password .= $char;
@@ -124,7 +125,7 @@ _DIE_MSG
         # since the verification process creates a situation of ordered types
         # (lowercase, uppercase, numerical, special)
         # we need to shuffle the string
-        $password = join '', shuffle( split //, $password );
+        $password = join $EMPTY, shuffle( split //sm, $password );
 
         $repeat == 1 && return $password;
 
@@ -287,6 +288,12 @@ Generating passwords with arrays (C<my @p = $gp-&gt;generate(...)>) will always 
 =head1 AUTHOR
 
 Sawyer X, C<< <xsawyerx at cpan.org> >>
+
+=head1 DEPENDENCIES
+
+L<Moose>
+
+L<List::AllUtils>
 
 =head1 BUGS AND LIMITATIONS
 
