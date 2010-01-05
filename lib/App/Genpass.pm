@@ -23,11 +23,15 @@ has 'unreadable' => (
     default => sub { [ split //sm, q{oO0l1I} ] },
 );
 
+## no critic (RequireInterpolationOfMetachars)
+
 has 'specials' => (
     is      => 'ro',
     isa     => 'ArrayRef[Str]',
     default => sub { [ split //sm, q{!@#$%^&*()} ] },
 );
+
+## use critic
 
 has [ qw( readable special verify ) ] => (
     is => 'ro', isa => 'Bool', default => 1,
@@ -140,6 +144,8 @@ _DIE_MSG
 1;
 
 __END__
+
+=for stopwords boolean DWIM DWYM arrayref perldoc Github CPAN's AnnoCPAN CPAN
 
 =head1 NAME
 
