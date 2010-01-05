@@ -6,15 +6,15 @@ use List::AllUtils qw( any none shuffle );
 
 # attributes for password generation
 has 'lowercase' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 'a'..'z' ] }
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 'a'..'z' ] },
 );
 
 has 'uppercase' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 'A'..'Z' ] }
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 'A'..'Z' ] },
 );
 
 has 'numerical' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ '0' .. '9' ] }
+    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ '0' .. '9' ] },
 );
 
 has 'unreadable' => (
@@ -30,7 +30,7 @@ has 'specials' => (
 );
 
 has [ qw( readable special verify ) ] => (
-    is => 'ro', isa => 'Bool', default => 1
+    is => 'ro', isa => 'Bool', default => 1,
 );
 
 has [ qw( length ) ] => ( is => 'ro', isa => 'Int', default => 10 );
