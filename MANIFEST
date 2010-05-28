@@ -13,3 +13,4 @@ t/pod.t
 Makefile.PL
 LICENSE
 META.yml
+bin/genpass
