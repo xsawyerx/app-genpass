@@ -1,0 +1,10 @@
+#!perl
+
+use strict;
+use warnings;
+
+use App::Genpass;
+
+my $genpass = App::Genpass->new;
+
+exit $genpass->run;
