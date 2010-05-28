@@ -5,6 +5,8 @@ use Moose;
 use List::AllUtils qw( any none shuffle );
 use namespace::autoclean;
 
+with qw/ MooseX::SimpleConfig MooseX::Getopt /;
+
 # attributes for password generation
 has 'lowercase' => (
     is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 'a'..'z' ] },
