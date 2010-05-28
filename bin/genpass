@@ -5,6 +5,9 @@ use warnings;
 
 use App::Genpass;
 
-my $genpass = App::Genpass->new;
+my $app       = App::Genpass->new_with_options;
+my @passwords = $app->generate();
 
-exit $genpass->run;
+print "$_\n" for @passwords;
+
+exit 0;
