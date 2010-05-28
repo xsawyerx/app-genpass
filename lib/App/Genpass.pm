@@ -34,6 +34,8 @@ has 'specials' => (
     default => sub { [ split //sm, q{!@#$%^&*()} ] },
 );
 
+has 'repeat' => ( is => 'ro', isa => 'Int', default => 1 );
+
 ## use critic
 
 has [ qw( readable special verify ) ] => (
@@ -102,7 +104,7 @@ You requested $num_of_types types of characters but only have $length length.
 _DIE_MSG
     }
 
-    $repeat ||= 1;
+    $repeat ||= $self->repeat;
 
     # each password iteration needed
     foreach my $pass_iter ( 1 .. $repeat ) {
@@ -200,6 +202,13 @@ Creates a new instance. It gets a lot of options.
 These are boolean flags which change the way App::Genpass works.
 
 =over 4
+
+=item repeat
+
+You can decide how many passwords to create. The default is 1.
+
+This can be overridden per I<generate> so you can have a default of 30 but in a
+specific case only generate 2, if that's what you want.
 
 =item readable
 
