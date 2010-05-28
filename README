@@ -2,7 +2,7 @@ NAME
     App::Genpass - Quickly create secure passwords
 
 VERSION
-    Version 0.05
+    Version 0.06
 
 SYNOPSIS
         use App::Genpass;
@@ -36,6 +36,12 @@ SUBROUTINES/METHODS
 
    flags
     These are boolean flags which change the way App::Genpass works.
+
+    repeat
+        You can decide how many passwords to create. The default is 1.
+
+        This can be overridden per *generate* so you can have a default of
+        30 but in a specific case only generate 2, if that's what you want.
 
     readable
         Use only readable characters, excluding confusing characters: "o",
@@ -101,8 +107,8 @@ SUBROUTINES/METHODS
         removed from all sets.
 
         Thus, unreadable characters override all other sets. You can make
-        unreadable characters not count by using the <code>readable =>
-        0</code> option, described by the *readable* flag above.
+        unreadable characters not count by using the "readable =&gt; 0"
+        option, described by the *readable* flag above.
 
     specials
         All special characters.
@@ -120,19 +126,23 @@ SUBROUTINES/METHODS
         my @passwords = $gp->generate(300); # 300 passwords to go
 
     This method tries to be tricky and DWIM (or rather, DWYM). That is, if
-    you request it to generate only one password and use a scalar (<code>my
-    $p = $gp->generate(1)</code>), it will return a single password.
+    you request it to generate only one password and use a scalar ("my $p =
+    $gp-&gt;generate(1)"), it will return a single password.
 
-    However, if you try to generate multiple passwords and use a scalar
-    (<code>my $p = $gp->generate(30)</code>), it will return an arrayref for
-    the passwords.
+    However, if you try to generate multiple passwords and use a scalar ("my
+    $p = $gp-&gt;generate(30)"), it will return an arrayref for the
+    passwords.
 
-    Generating passwords with arrays (<code>my @p =
-    $gp->generate(...)</code>) will always return an array of the passwords,
-    even if it's a single password.
+    Generating passwords with arrays ("my @p = $gp-&gt;generate(...)") will
+    always return an array of the passwords, even if it's a single password.
 
 AUTHOR
     Sawyer X, "<xsawyerx at cpan.org>"
+
+DEPENDENCIES
+    Moose
+
+    List::AllUtils
 
 BUGS AND LIMITATIONS
     Please report any bugs or feature requests to "bug-app-genpass at
@@ -169,7 +179,7 @@ SUPPORT
         <http://search.cpan.org/dist/App-Genpass/>
 
 LICENSE AND COPYRIGHT
-    Copyright 2009 Sawyer X.
+    Copyright 2009-2010 Sawyer X.
 
     This program is free software; you can redistribute it and/or modify it
     under the terms of either: the GNU General Public License as published
