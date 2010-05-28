@@ -3,6 +3,7 @@ package App::Genpass;
 use Carp;
 use Moose;
 use List::AllUtils qw( any none shuffle );
+use namespace::autoclean;
 
 # attributes for password generation
 has 'lowercase' => (
@@ -140,6 +141,9 @@ _DIE_MSG
 
     return wantarray ? @passwords : \@passwords;
 }
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
 
 1;
 
