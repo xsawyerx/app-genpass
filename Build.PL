@@ -15,6 +15,8 @@ my $builder = Module::Build->new(
     requires => {
         'Carp'                 => 0,
         'Moose'                => 0,
+        'MooseX::Getopt'       => 0,
+        'MooseX::SimpleConfig' => 0,
         'List::AllUtils'       => 0,
         'namespace::autoclean' => 0,
     },
