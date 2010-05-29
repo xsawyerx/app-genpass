@@ -17,12 +17,14 @@ name: App-Genpass
 provides:
   App::Genpass:
     file: lib/App/Genpass.pm
-    version: 0.06
+    version: 0.07
 requires:
   Carp: 0
   List::AllUtils: 0
   Moose: 0
+  MooseX::Getopt: 0
+  MooseX::SimpleConfig: 0
   namespace::autoclean: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.06
+version: 0.07
