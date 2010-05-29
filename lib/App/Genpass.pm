@@ -34,20 +34,52 @@ has 'specials' => (
     default => sub { [ split //sm, q{!@#$%^&*()} ] },
 );
 
-has 'repeat' => ( is => 'ro', isa => 'Int', default => 1 );
-
 ## use critic
 
-has [ qw( readable special verify ) ] => (
-    is => 'ro', isa => 'Bool', default => 1,
+has 'repeat' => (
+    is          => 'ro',
+    isa         => 'Int',
+    default     => 1,
+    traits      => ['Getopt'],
+    cmd_aliases => 'r',
 );
 
-has [ qw( length ) ] => ( is => 'ro', isa => 'Int', default => 10 );
+has 'readable' => (
+    is          => 'ro',
+    isa         => 'Bool',
+    default     => 1,
+    traits      => ['Getopt'],
+    cmd_aliases => 'e',
+);
+
+has 'special' => (
+    is          => 'ro',
+    isa         => 'Bool',
+    default     => 1,
+    traits      => ['Getopt'],
+    cmd_aliases => 's',
+);
+
+has 'verify' => (
+    is          => 'ro',
+    isa         => 'Bool',
+    default     => 1,
+    traits      => ['Getopt'],
+    cmd_aliases => 'v',
+);
+
+has 'length' => (
+    is          => 'ro',
+    isa         => 'Int',
+    default     => 10,
+    traits      => ['Getopt'],
+    cmd_aliases => 'l',
+);
 
 # attributes for the program
 has 'configfile' => ( is => 'ro', isa => 'Str' );
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 sub _get_chars {
     my $self      = shift;
@@ -161,7 +193,7 @@ App::Genpass - Quickly create secure passwords
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,10 @@
 Revision history for App-Genpass
 
-0.06
+0.07    30.05.10
+        - Added MX::* to Build.PL
+        - Added single char options (-l, -v, etc.)
+
+0.06    29.05.10
         - Finally adding genpass CLI !!
         - POD fix C<> vs. <code></code>
 
