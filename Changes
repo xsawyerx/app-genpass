@@ -1,5 +1,9 @@
 Revision history for App-Genpass
 
+0.08    30.05.10
+        - Added description for genpass app
+          Now --help works
+
 0.07    30.05.10
         - Added MX::* to Build.PL
         - Added single char options (-l, -v, etc.)

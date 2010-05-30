@@ -79,7 +79,7 @@ has 'length' => (
 # attributes for the program
 has 'configfile' => ( is => 'ro', isa => 'Str' );
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 sub _get_chars {
     my $self      = shift;
@@ -193,7 +193,7 @@ App::Genpass - Quickly and easily create secure passwords
 
 =head1 VERSION
 
-Version 0.07
+Version 0.08
 
 =head1 SYNOPSIS
 
