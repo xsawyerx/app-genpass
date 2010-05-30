@@ -189,7 +189,7 @@ __END__
 
 =head1 NAME
 
-App::Genpass - Quickly create secure passwords
+App::Genpass - Quickly and easily create secure passwords
 
 =head1 VERSION
 
