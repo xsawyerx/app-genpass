@@ -1,5 +1,8 @@
 Revision history for App-Genpass
 
+0.09    31.05.10
+        - Auto-read default configuration file (/etc/genpass.yaml)
+
 0.08    30.05.10
         - Added description for genpass app
           Now --help works

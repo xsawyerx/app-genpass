@@ -76,10 +76,9 @@ has 'length' => (
     cmd_aliases => 'l',
 );
 
-# attributes for the program
-has 'configfile' => ( is => 'ro', isa => 'Str' );
+has '+configfile' => ( default => '/etc/genpass.yaml' );
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 sub _get_chars {
     my $self      = shift;
@@ -193,7 +192,7 @@ App::Genpass - Quickly and easily create secure passwords
 
 =head1 VERSION
 
-Version 0.08
+Version 0.09
 
 =head1 SYNOPSIS
 

@@ -72,6 +72,8 @@ Or a global one as such:
 
     genpass --configfile /etc/genpass.json
 
+Default: I</etc/genpass.yaml>.
+
 =item B<-e | --readable>
 
 A flag to decide whether passwords should be readable. The purpose of
