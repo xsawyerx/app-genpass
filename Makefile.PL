@@ -9,7 +9,7 @@ WriteMakefile
                            'List::AllUtils' => 0,
                            'List::MoreUtils' => 0,
                            'Moose' => 0,
-                           'MooseX::Getopt' => 0,
+                           'MooseX::Getopt' => '0.12',
                            'MooseX::SimpleConfig' => 0,
                            'Test::Deep' => 0,
                            'Test::More' => 0,
