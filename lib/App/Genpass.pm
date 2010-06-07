@@ -78,7 +78,7 @@ has 'length' => (
 
 has '+configfile' => ( default => '/etc/genpass.yaml' );
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 sub _get_chars {
     my $self      = shift;
@@ -192,7 +192,7 @@ App::Genpass - Quickly and easily create secure passwords
 
 =head1 VERSION
 
-Version 0.09
+Version 0.10
 
 =head1 SYNOPSIS
 
