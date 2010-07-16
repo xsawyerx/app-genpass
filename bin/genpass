@@ -19,13 +19,13 @@ exit 0;
 __END__
 =head1 SYNOPSIS
 
-genpass [-elrsv] [long options...]
+genpass [-rlnsv] [long options...]
 
  Options:
           --configfile      configuration file to read (YAML, JSON, INI, etc.)
-    -e    --readable        create readable passwords
+    -r    --readable        create readable passwords
     -l    --length          password length
-    -r    --repeat          how many passwords to create
+    -n    --number          how many passwords to create
     -s    --special         use special characters (clashes with readable opt)
     -v    --verify          verify types of characters
           --lowercase       what lowercase characters to use
@@ -73,7 +73,7 @@ Or a global one as such:
 
 Default: I</etc/genpass.yaml>.
 
-=item B<-e | --readable>
+=item B<-r | --readable>
 
 A flag to decide whether passwords should be readable. The purpose of
 readability is to create passwords you can give to users or read to someone -
@@ -117,13 +117,12 @@ complain and try to explain what the problem is.
 
 Default: 10.
 
-=item B<-r | --repeat>
+=item B<-n | --number>
 
-How many passwords to create. The word repeat comes from how many times to
-repeat the generation process.
+How many passwords to create.
 
     # generate 30 passwords
-    genpass -r 30
+    genpass -n 30
 
 Default: 1.
 
@@ -187,8 +186,8 @@ sequences are stripped of such characters.
     genpass -l 10
 
     # create 30 passwords using all possible characters
-    genpass -r 30 --noreadable
+    genpass -n 30 --noreadable
 
     # create 5 new passwords of length of 30, long options
-    genpass --repeat 5 --length 30
+    genpass --number 5 --length 30
 
