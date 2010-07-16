@@ -43,8 +43,9 @@ able to do plenty without necessarily needing to.
 
 The way B<genpass> works is by compiling a list of known characters by types
 (numerical, lowercase, uppercase, etc.) and a list of unreadable characters -
-which are basically characters that can be confused with each other (0OIl1),
-etc.
+which are basically characters that can be confused with each other (0, O, I, l,
+1 and so on). It generates a random by possible characters, excluding the
+non-readable ones, if any exist.
 
 B<genpass> allows you to pick which characters it will use to create the
 passwords via the longer options for I<lowercase>, I<uppercase>,
@@ -52,6 +53,15 @@ I<numerical>, I<specials> and I<unreadable>.
 
 Also, any boolean option (readable, special) can be negated using "no", such as
 I<genpass --nospecial> which negates I<genpass --special>.
+
+B<genpass> also supports configuration files, so you don't have to remember all
+your favorite options and insert them each time. First it tries to read a
+C<.genpass.yaml> in your home folder (works with Linux, BSD, MacOS, Windows and
+anything L<File::HomeDir> supports) and if that doesn't exist (or is simply
+unreadable), it looks for a global Unix-style conf named C</etc/genpass.yaml>.
+
+You will read below how you can specifically ask to read a completely different
+file instead of the default ones mentioned above.
 
 Read below for more options and examples.
 
@@ -71,7 +81,7 @@ Or a global one as such:
 
     genpass --configfile /etc/genpass.json
 
-Default: I</etc/genpass.yaml>.
+Default: I<YourHomeFolder/.genpass.yaml>, then I</etc/genpass.yaml>.
 
 =item B<-r | --readable>
 
