@@ -1,4 +1,5 @@
 package App::Genpass;
+# ABSTRACT: Quickly and easily create secure passwords
 
 use Carp;
 use Moose;
@@ -77,8 +78,6 @@ has 'length' => (
 );
 
 has '+configfile' => ( default => '/etc/genpass.yaml' );
-
-our $VERSION = '0.10';
 
 sub _get_chars {
     my $self      = shift;
@@ -185,14 +184,6 @@ no Moose;
 __END__
 
 =for stopwords boolean DWIM DWYM arrayref perldoc Github CPAN's AnnoCPAN CPAN
-
-=head1 NAME
-
-App::Genpass - Quickly and easily create secure passwords
-
-=head1 VERSION
-
-Version 0.10
 
 =head1 SYNOPSIS
 
@@ -404,14 +395,4 @@ L<http://cpanratings.perl.org/d/App-Genpass>
 L<http://search.cpan.org/dist/App-Genpass/>
 
 =back
-
-=head1 LICENSE AND COPYRIGHT
-
-Copyright 2009-2010 Sawyer X.
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
-
-See http://dev.perl.org/licenses/ for more information.
 
