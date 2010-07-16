@@ -3,6 +3,7 @@ package App::Genpass;
 
 use Carp;
 use Moose;
+use Path::Class 'file';
 use List::AllUtils qw( any none shuffle );
 use namespace::autoclean;
 
@@ -77,7 +78,15 @@ has 'length' => (
     cmd_aliases => 'l',
 );
 
-has '+configfile' => ( default => '/etc/genpass.yaml' );
+has '+configfile' => (
+    isa     => 'Maybe[MooseX::Types::Path::Class::File]',
+    default => sub {
+        my @files = ('/etc/genpass.yaml');
+        foreach my $file (@files) {
+            -e $file && -r $file and return file($file);
+        }
+    },
+);
 
 sub _get_chars {
     my $self      = shift;
