@@ -1,5 +1,10 @@
 Revision history for App-Genpass
 
+0.11    16.07.10
+        - Correctly implement optional default configuration file
+        - Add optional homefolder configuration file
+        - Moving to Dist::Zilla... it's awesome!
+
 0.10    07.06.10
         - Minimum requirement of MooseX::Getopt => 0.12
 
