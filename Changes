@@ -1,5 +1,9 @@
 Revision history for App-Genpass
 
+1.01
+        - Explaining how much "speeds" noverify adds
+        (0.1 secs for 500 passwords of 500 char length)
+
 1.00    17.07.10
         [API Change]
         - renamed "repeat" (-r) to "number" (-n)
