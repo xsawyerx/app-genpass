@@ -321,7 +321,7 @@ Default: [ '0' .. '9' ] (not including excluded chars).
 
 =item unreadable
 
-All characters which are considered (to me) unreadable. You can change this to
+All characters which are considered (by me) unreadable. You can change this to
 what you consider unreadable characters. For example:
 
     my $gp = App::Genpass->new( unreadable => [ qw(jlvV) ] );
