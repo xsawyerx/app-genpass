@@ -4,6 +4,7 @@ package App::Genpass;
 use Carp;
 use Moose;
 use Path::Class 'file';
+use File::HomeDir;
 use List::AllUtils qw( any none shuffle );
 use namespace::autoclean;
 
@@ -81,7 +82,11 @@ has 'length' => (
 has '+configfile' => (
     isa     => 'Maybe[MooseX::Types::Path::Class::File]',
     default => sub {
-        my @files = ('/etc/genpass.yaml');
+        my @files = (
+            file( File::HomeDir->my_home, '.genpass.yaml' ),
+            '/etc/genpass.yaml',
+        );
+
         foreach my $file (@files) {
             -e $file && -r $file and return file($file);
         }
