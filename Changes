@@ -1,9 +1,12 @@
 Revision history for App-Genpass
 
-1.12    17.07.10
-        [ API Change ]
+1.00    17.07.10
+        [API Change]
         - renamed "repeat" (-r) to "number" (-n)
         - renamed -e to -r.
+
+        [Docs]
+        - Document default configuration files
 
 0.11    16.07.10
         - Correctly implement optional default configuration file
