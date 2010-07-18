@@ -90,6 +90,8 @@ has '+configfile' => (
         foreach my $file (@files) {
             -e $file && -r $file and return file($file);
         }
+
+        return;
     },
 );
 
