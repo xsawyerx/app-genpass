@@ -1,6 +1,7 @@
 Revision history for App-Genpass
 
-1.01
+1.01    18.07.10
+        - Fixed small test bug, must return from default coderef
         - Explaining how much "speeds" noverify adds
         (0.1 secs for 500 passwords of 500 char length)
 
