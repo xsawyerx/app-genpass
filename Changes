@@ -1,5 +1,11 @@
 Revision history for App-Genpass
 
+2.00    17.02.11
+        ** Major change **
+        - Moving to Mouse instead of Moose. Should work much faster for users
+          without causing problems.
+          (since it's a big change, I'm noting this as a very major release)
+
 1.01    18.07.10
         - Fixed small test bug, must return from default coderef
         - Explaining how much "speeds" noverify adds
