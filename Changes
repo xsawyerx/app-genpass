@@ -1,5 +1,8 @@
 Revision history for App-Genpass
 
+2.01    10.03.11
+        - Fix tests by requiring namespace::clean at least 0.2
+
 2.00    17.02.11
         ** Major change **
         - Moving to Mouse instead of Moose. Should work much faster for users
