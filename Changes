@@ -1,7 +1,9 @@
 Revision history for App-Genpass
 
-2.03
-        - Typo in POD. (reported by Neil Bowers, thanks!)
+2.03    03.08.11
+        (this release, as the previous, are due to Neil Bowers, so thanks!)
+        - Using readable with special now throws an exception. Added in docs.
+        - Typo in POD.
 
 2.02    03.08.11
         - RT #69980: clarify the usage of default number of passwords in
