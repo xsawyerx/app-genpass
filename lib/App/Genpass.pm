@@ -62,7 +62,7 @@ has 'readable' => (
 has 'special' => (
     is          => 'ro',
     isa         => 'Bool',
-    default     => 1,
+    default     => 0,
     traits      => ['Getopt'],
     cmd_aliases => 's',
 );
@@ -176,6 +176,10 @@ sub generate {
     my @passwords     = ();
     my @verifications = ();
     my $EMPTY         = q{};
+
+    if ( $self->special && $self->readable ) {
+        croak 'Cannot have both special and readable characters. Pick one.';
+    }
 
     my ( $char_types, @chars ) = @{ $self->_get_chars };
 
@@ -297,11 +301,17 @@ attributes" below.
 
 Default: on.
 
+This conflicts with special characters so be sure to disable it if you want
+special characters to be used.
+
 =item special
 
 Include special characters: "!", "@", "#", "$", "%", "^", "&", "*", "(", ")"
 
-Default: on.
+Default: off.
+
+This conflicts with readable characters so be sure to disable them if you want
+special characters to be used.
 
 =item verify
 
