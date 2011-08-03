@@ -309,7 +309,7 @@ Verify that every type of character wanted (lowercase, uppercase, numerical,
 specials, etc.) are present in the password. This makes it just a tad slower,
 but it guarantees the result. Best keep it on.
 
-To emphesize how "slower" it is: if you create 500 passwords of 500 character
+To emphasize how "slower" it is: if you create 500 passwords of 500 character
 length, using C<verify> off, will make it faster by 0.1 seconds.
 
 Default: on.
