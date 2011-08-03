@@ -388,10 +388,13 @@ Default: [ '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' ].
 
 This method generates the password or passwords.
 
-It accepts only one parameter, which is how many passwords to generate.
+It accepts an optional parameter indicating how many passwords to generate.
 
     $gp = App::Genpass->new();
     my @passwords = $gp->generate(300); # 300 passwords to go
+
+If you do not provide a parameter, it will use the default number of passwords
+to generate, defined by the attribute B<number> explained above.
 
 This method tries to be tricky and DWIM (or rather, DWYM). That is, if you
 request it to generate only one password and use scalar context
