@@ -1,5 +1,9 @@
 Revision history for App-Genpass
 
+2.02    03.08.11
+        - RT #69980: clarify the usage of default number of passwords in
+        generate() method. (reported by Neil Bowers, thanks!)
+
 2.01    10.03.11
         - Fix tests by requiring namespace::clean at least 0.2
 
