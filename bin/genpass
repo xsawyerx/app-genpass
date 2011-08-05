@@ -145,7 +145,7 @@ such as period, exclamation mark, percentage sign, etc.
 
 You can negate this flag by doing:
 
-    genpass --nospecials
+    genpass --nospecial
 
 Default: no.
 
