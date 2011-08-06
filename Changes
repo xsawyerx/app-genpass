@@ -1,5 +1,9 @@
 Revision history for App-Genpass
 
+2.04    06.08.11
+        - Clarify the distribution contains an application as well.
+        (Neil Bowers).
+
 2.03    03.08.11
         (this release, as the previous, are due to Neil Bowers, so thanks!)
         - Using readable with special now throws an exception. Added in docs.
