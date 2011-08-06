@@ -260,7 +260,7 @@ If you've ever needed to create 10 (or even 10,000) passwords on the fly with
 varying preferences (lowercase, uppercase, no confusing characters, special
 characters, minimum length, etc.), you know it can become a pretty pesky task.
 
-This script makes it possible to create flexible and secure passwords, quickly
+This module makes it possible to create flexible and secure passwords, quickly
 and easily.
 
     use App::Genpass;
@@ -271,6 +271,9 @@ and easily.
     my @multiple_passwords = $genpass->generate(10); # returns array again
     my $multiple_passwords = $genpass->generate(10); # returns arrayref
 
+This distribution includes a program called B<genpass>, which is a command line
+interface to this module. If you need a program that generates passwords, use
+B<genpass>.
 
 =head1 SUBROUTINES/METHODS
 
