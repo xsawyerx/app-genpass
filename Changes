@@ -3,6 +3,8 @@ Revision history for App-Genpass
 2.04    06.08.11
         - Clarify the distribution contains an application as well.
         (Neil Bowers).
+        - POD fix.
+        (Tim Heaney)
 
 2.03    03.08.11
         (this release, as the previous, are due to Neil Bowers, so thanks!)
