@@ -1,5 +1,11 @@
 Revision history for App-Genpass
 
+2.10    08.08.11
+        - Removing the need for "special" boolean flag. Using 'noreadable'
+        or readable => 0 will negate special. Readable will exclude special
+        characters.
+        (Tim Heaney - oylenshpeegul)
+
 2.03    03.08.11
         (this release, as the previous, are due to Neil Bowers, so thanks!)
         - Using readable with special now throws an exception. Added in docs.
