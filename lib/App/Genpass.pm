@@ -59,14 +59,6 @@ has 'readable' => (
     cmd_aliases => 'r',
 );
 
-has 'special' => (
-    is          => 'ro',
-    isa         => 'Bool',
-    default     => 0,
-    traits      => ['Getopt'],
-    cmd_aliases => 's',
-);
-
 has 'verify' => (
     is          => 'ro',
     isa         => 'Bool',
@@ -176,10 +168,6 @@ sub generate {
     my @passwords     = ();
     my @verifications = ();
     my $EMPTY         = q{};
-
-    if ( $self->special && $self->readable ) {
-        croak 'Cannot have both special and readable characters. Pick one.';
-    }
 
     my ( $char_types, @chars ) = @{ $self->_get_chars };
 
@@ -294,24 +282,12 @@ specific case only generate 2, if that's what you want.
 =item readable
 
 Use only readable characters, excluding confusing characters: "o", "O", "0",
-"l", "1", "I".
+"l", "1", "I", and special characters such as '#', '!', '%' and other symbols.
 
 You can overwrite what characters are considered unreadable under "character
 attributes" below.
 
 Default: on.
-
-This conflicts with special characters so be sure to disable it if you want
-special characters to be used.
-
-=item special
-
-Include special characters: "!", "@", "#", "$", "%", "^", "&", "*", "(", ")"
-
-Default: off.
-
-This conflicts with readable characters so be sure to disable them if you want
-special characters to be used.
 
 =item verify
 
