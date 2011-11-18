@@ -70,9 +70,24 @@ has 'verify' => (
 has 'length' => (
     is          => 'ro',
     isa         => 'Int',
-    default     => 10,
     traits      => ['Getopt'],
     cmd_aliases => 'l',
+);
+
+has 'minlength' => (
+    is          => 'ro',
+    isa         => 'Int',
+    default     => 8,
+    traits      => ['Getopt'],
+    cmd_aliases => 'm',
+);
+
+has 'maxlength' => (
+    is          => 'ro',
+    isa         => 'Int',
+    default     => 10,
+    traits      => ['Getopt'],
+    cmd_aliases => 'x',
 );
 
 has '+configfile' => (
@@ -163,7 +178,7 @@ sub _get_chars {
 sub generate {
     my ( $self, $number ) = @_;
 
-    my $length        = $self->length;
+    my $length;
     my $verify        = $self->verify;
     my @passwords     = ();
     my @verifications = ();
@@ -174,12 +189,16 @@ sub generate {
     my @char_types   = @{$char_types};
     my $num_of_types = scalar @char_types;
 
-    if ( $num_of_types > $length ) {
+    if ( (defined($self->length) && $num_of_types > $self->length)
+         || ($num_of_types > $self->minlength) ) {
         croak <<"_DIE_MSG";
 You wanted a longer password that the variety of characters you've selected.
 You requested $num_of_types types of characters but only have $length length.
 _DIE_MSG
     }
+
+    $length = $self->length
+            || $self->minlength + int(rand($self->maxlength - $self->minlength + 1));
 
     $number ||= $self->number;
 
@@ -306,11 +325,21 @@ Default: on.
 
 =over 4
 
-=item length
+=item minlength
 
-How long will the passwords be.
+The minimum length of password to generate.
+
+Default: 8.
+
+=item maxlength
+
+The maximum length of password to generate.
 
 Default: 10.
+
+=item length
+
+Use this if you want to explicitly specify the length of password to generate.
 
 =back
 
