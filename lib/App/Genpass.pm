@@ -191,8 +191,9 @@ sub generate {
 
     if ( (defined($self->length) && $num_of_types > $self->length)
          || ($num_of_types > $self->minlength) ) {
+        $length = defined($self->length) ? $self->length : $self->minlength.' minimum';
         croak <<"_DIE_MSG";
-You wanted a longer password that the variety of characters you've selected.
+You wanted a shorter password that the variety of characters you've selected.
 You requested $num_of_types types of characters but only have $length length.
 _DIE_MSG
     }
