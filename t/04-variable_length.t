@@ -4,17 +4,35 @@ use strict;
 use warnings;
 
 use App::Genpass;
-use Test::More tests => 1001;
+use Test::More tests => 3;
 
 my $app    = App::Genpass->new( minlength => 7, maxlength => 10 );
-my $pass   = $app->generate(); # default is to generate 1
+my $pass;
 my %seen;
 
 for (my $i=0; $i<1000; $i++) {
     $pass = $app->generate();
-    ok(defined($pass) && length($pass) >= 7 && length($pass) <= 10);
     $seen{ length($pass) } = 1;
 }
+ok(int(keys %seen) == 4 && $seen{7} && $seen{8} && $seen{9} && $seen{10},
+   "seen all expected password lengths");
 
-ok($seen{7} && $seen{8} && $seen{9} && $seen{10}, "seen all expected password lengths");
+%seen = ();
+$app = App::Genpass->new(length => 8);
+
+for (my $i=0; $i<1000; $i++) {
+    $pass = $app->generate();
+    $seen{ length($pass) } = 1;
+}
+ok(int(keys %seen) == 1 && $seen{8}, "only seen passwords of length 8");
+
+%seen = ();
+$app = App::Genpass->new();
+
+for (my $i=0; $i<1000; $i++) {
+    $pass = $app->generate();
+    $seen{ length($pass) } = 1;
+}
+ok(int(keys %seen) == 3 && $seen{8} && $seen{9} && $seen{10},
+   "default should be lengths >= 8 and <= 10");
 
