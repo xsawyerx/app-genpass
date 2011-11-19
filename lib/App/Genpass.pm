@@ -75,7 +75,7 @@ has 'length' => (
 );
 
 has 'minlength' => (
-    is          => 'ro',
+    is          => 'rw',
     isa         => 'Int',
     default     => 8,
     traits      => ['Getopt'],
@@ -83,7 +83,7 @@ has 'minlength' => (
 );
 
 has 'maxlength' => (
-    is          => 'ro',
+    is          => 'rw',
     isa         => 'Int',
     default     => 10,
     traits      => ['Getopt'],
@@ -197,8 +197,15 @@ You requested $num_of_types types of characters but only have $length length.
 _DIE_MSG
     }
 
+    if ($self->minlength > $self->maxlength) {
+        carp "minlength > maxlength, so I'm switching them";
+        my $min = $self->maxlength;
+        $self->maxlength($self->minlength);
+        $self->minlength($min);
+    }
+
     $length = $self->length
-            || $self->minlength + int(rand($self->maxlength - $self->minlength + 1));
+            || $self->minlength + int(rand(abs($self->maxlength - $self->minlength) + 1));
 
     $number ||= $self->number;
 
