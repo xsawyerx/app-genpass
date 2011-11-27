@@ -1,5 +1,9 @@
 Revision history for App-Genpass
 
+2.20    27.11.11
+        - Add minlength and maxlength (Neil Bowers).
+        - Correct warning (Neil Bowers).
+
 2.10    08.08.11
         - Removing the need for "special" boolean flag. Using 'noreadable'
         or readable => 0 will negate special. Readable will exclude special
