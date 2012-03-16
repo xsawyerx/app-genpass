@@ -54,6 +54,11 @@ sub parse_opts {
         'x|maxlength=i' => \$opts{'maxlength'},
     ) or croak 'Can\'t get options.';
 
+    # remove undefined keys
+    foreach my $key ( keys %opts ) {
+        defined $opts{$key} or delete $opts{$key};
+    }
+
     return %opts;
 }
 
