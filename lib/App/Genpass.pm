@@ -59,14 +59,6 @@ has 'readable' => (
     cmd_aliases => 'r',
 );
 
-has 'special' => (
-    is          => 'ro',
-    isa         => 'Bool',
-    default     => 0,
-    traits      => ['Getopt'],
-    cmd_aliases => 's',
-);
-
 has 'verify' => (
     is          => 'ro',
     isa         => 'Bool',
@@ -78,9 +70,24 @@ has 'verify' => (
 has 'length' => (
     is          => 'ro',
     isa         => 'Int',
-    default     => 10,
     traits      => ['Getopt'],
     cmd_aliases => 'l',
+);
+
+has 'minlength' => (
+    is          => 'rw',
+    isa         => 'Int',
+    default     => 8,
+    traits      => ['Getopt'],
+    cmd_aliases => 'm',
+);
+
+has 'maxlength' => (
+    is          => 'rw',
+    isa         => 'Int',
+    default     => 10,
+    traits      => ['Getopt'],
+    cmd_aliases => 'x',
 );
 
 has '+configfile' => (
@@ -171,27 +178,35 @@ sub _get_chars {
 sub generate {
     my ( $self, $number ) = @_;
 
-    my $length        = $self->length;
+    my $length;
     my $verify        = $self->verify;
     my @passwords     = ();
     my @verifications = ();
     my $EMPTY         = q{};
-
-    if ( $self->special && $self->readable ) {
-        croak 'Cannot have both special and readable characters. Pick one.';
-    }
 
     my ( $char_types, @chars ) = @{ $self->_get_chars };
 
     my @char_types   = @{$char_types};
     my $num_of_types = scalar @char_types;
 
-    if ( $num_of_types > $length ) {
+    if ( (defined($self->length) && $num_of_types > $self->length)
+         || ($num_of_types > $self->minlength) ) {
+        $length = defined($self->length) ? $self->length : $self->minlength.' minimum';
         croak <<"_DIE_MSG";
-You wanted a longer password that the variety of characters you've selected.
+You wanted a shorter password that the variety of characters you've selected.
 You requested $num_of_types types of characters but only have $length length.
 _DIE_MSG
     }
+
+    if ($self->minlength > $self->maxlength) {
+        carp "minlength > maxlength, so I'm switching them";
+        my $min = $self->maxlength;
+        $self->maxlength($self->minlength);
+        $self->minlength($min);
+    }
+
+    $length = $self->length
+            || $self->minlength + int(rand(abs($self->maxlength - $self->minlength) + 1));
 
     $number ||= $self->number;
 
@@ -297,24 +312,12 @@ specific case only generate 2, if that's what you want.
 =item readable
 
 Use only readable characters, excluding confusing characters: "o", "O", "0",
-"l", "1", "I".
+"l", "1", "I", and special characters such as '#', '!', '%' and other symbols.
 
 You can overwrite what characters are considered unreadable under "character
 attributes" below.
 
 Default: on.
-
-This conflicts with special characters so be sure to disable it if you want
-special characters to be used.
-
-=item special
-
-Include special characters: "!", "@", "#", "$", "%", "^", "&", "*", "(", ")"
-
-Default: off.
-
-This conflicts with readable characters so be sure to disable them if you want
-special characters to be used.
 
 =item verify
 
@@ -333,11 +336,21 @@ Default: on.
 
 =over 4
 
-=item length
+=item minlength
 
-How long will the passwords be.
+The minimum length of password to generate.
+
+Default: 8.
+
+=item maxlength
+
+The maximum length of password to generate.
 
 Default: 10.
+
+=item length
+
+Use this if you want to explicitly specify the length of password to generate.
 
 =back
 
