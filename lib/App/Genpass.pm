@@ -65,26 +65,24 @@ has maxlength => (
 
 has configfile => (
     is      => 'ro',
-    default => sub {''},
+    default => sub {
+        # find configfile location
+        my @files = (
+            File::Spec->catfile( File::HomeDir->my_home, '.genpass.yaml' ),
+            '/etc/genpass.yaml',
+        );
+
+        foreach my $file (@files) {
+            if ( -e $file && -r $file ) {
+                return $file;
+            }
+        }
+    },
 );
 
 sub parse_opts {
     my $class = shift;
     my %opts  = ();
-
-    # find configfile location
-    # XXX: this goes into the default of the attribute
-    my @files = (
-        File::Spec->catfile( File::HomeDir->my_home, '.genpass.yaml' ),
-        '/etc/genpass.yaml',
-    );
-
-    foreach my $file (@files) {
-        if ( -e $file && -r $file ) {
-            $opts{'configfile'} = $file;
-            last;
-        }
-    }
 
     GetOptions(
         'lowercase=s@'  => \$opts{'lowercase'},
