@@ -9,18 +9,64 @@ use Config::Any;
 use File::HomeDir;
 use List::AllUtils qw( any none shuffle );
 
-has uppercase  => ( is => 'ro', default => sub { [ 'A' .. 'Z' ] } );
-has lowercase  => ( is => 'ro', default => sub { [ 'a' .. 'z' ] } );
-has numerical  => ( is => 'ro', default => sub { [ '0' .. '9' ] } );
-has unreadable => ( is => 'ro', default => sub { [ split //sm, q{oO0l1I}     ] } );
-has specials   => ( is => 'ro', default => sub { [ split //sm, q{!@#$%^&*()} ] } );
-has number     => ( is => 'ro', default => sub {1}  );
-has readable   => ( is => 'ro', default => sub {1}  );
-has verify     => ( is => 'ro', default => sub {1}  );
-has length     => ( is => 'ro' );
-has minlength  => ( is => 'rw', default => sub {8}  );
-has maxlength  => ( is => 'rw', default => sub {10} );
-has configfile => ( is => 'ro', default => sub {''} );
+has uppercase => (
+    is      => 'ro',
+    default => sub { [ 'A' .. 'Z' ] },
+);
+
+has lowercase => (
+    is      => 'ro',
+    default => sub { [ 'a' .. 'z' ] },
+);
+
+has numerical => (
+    is      => 'ro',
+    default => sub { [ '0' .. '9' ] },
+);
+
+has unreadable => (
+    is      => 'ro',
+    default => sub { [ split //sm, q{oO0l1I} ] },
+);
+
+has specials => (
+    is      => 'ro',
+    default => sub { [ split //sm, q{!@#$%^&*()} ] },
+);
+
+has number => (
+    is      => 'ro',
+    default => sub {1},
+);
+
+has readable => (
+    is      => 'ro',
+    default => sub {1},
+);
+
+has verify => (
+    is      => 'ro',
+    default => sub {1},
+);
+
+has length => (
+    is => 'ro'
+);
+
+has minlength => (
+    is      => 'rw',
+    default => sub {8},
+);
+
+has maxlength => (
+    is      => 'rw',
+    default => sub {10},
+);
+
+has configfile => (
+    is      => 'ro',
+    default => sub {''},
+);
 
 sub parse_opts {
     my $class = shift;
