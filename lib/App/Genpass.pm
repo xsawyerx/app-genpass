@@ -3,6 +3,7 @@ package App::Genpass;
 
 use Carp;
 use Moo;
+use MooX::Types::MooseLike::Base qw/Int Str Bool ArrayRef/;
 use Getopt::Long qw/:config no_ignore_case/;
 use File::Spec;
 use Config::Any;
@@ -11,60 +12,72 @@ use List::AllUtils qw( any none shuffle );
 
 has uppercase => (
     is      => 'ro',
+    isa     => ArrayRef,
     default => sub { [ 'A' .. 'Z' ] },
 );
 
 has lowercase => (
     is      => 'ro',
+    isa     => ArrayRef,
     default => sub { [ 'a' .. 'z' ] },
 );
 
 has numerical => (
     is      => 'ro',
+    isa     => ArrayRef,
     default => sub { [ '0' .. '9' ] },
 );
 
 has unreadable => (
     is      => 'ro',
+    isa     => ArrayRef,
     default => sub { [ split //sm, q{oO0l1I} ] },
 );
 
 has specials => (
     is      => 'ro',
+    isa     => ArrayRef,
     default => sub { [ split //sm, q{!@#$%^&*()} ] },
 );
 
 has number => (
     is      => 'ro',
+    isa     => Bool,
     default => sub {1},
 );
 
 has readable => (
     is      => 'ro',
+    isa     => Bool,
     default => sub {1},
 );
 
 has verify => (
     is      => 'ro',
+    isa     => Bool,
     default => sub {1},
 );
 
 has length => (
-    is => 'ro'
+    is  => 'ro',
+    isa => Int,
 );
 
 has minlength => (
     is      => 'rw',
+    isa     => Int,
     default => sub {8},
 );
 
 has maxlength => (
     is      => 'rw',
+    isa     => Int,
     default => sub {10},
 );
 
 has configfile => (
     is      => 'ro',
+    isa     => Str,
     default => sub {
         # find configfile location
         my @files = (
@@ -109,7 +122,6 @@ sub parse_opts {
 sub new_with_options {
     my $class = shift;
     my %opts  = $class->parse_opts;
-
     my $self  = $class->new( %opts, @_ );
 
     return $self;
@@ -302,6 +314,22 @@ B<genpass>.
 =head2 new
 
 Creates a new instance. It gets a lot of options.
+
+=head2 new_with_options
+
+Creates a new instance while reading the command line parameters.
+
+=head2 parse_opts
+
+Parses the command line options.
+
+=head2 configfile
+
+An attribute with a default value of a subroutine that tries to find the
+configuration file. It checks for a C<.genpass.yaml> in your home directory
+(using L<File::HomeDir>), and then for C</etc/genpass.yaml>.
+
+If one is available, that's what it uses. Otherwise nothing.
 
 =head3 flags
 
