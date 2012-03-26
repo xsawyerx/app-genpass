@@ -2,109 +2,130 @@ package App::Genpass;
 # ABSTRACT: Quickly and easily create secure passwords
 
 use Carp;
-use Mouse;
-use Path::Class 'file';
+use Moo;
+use MooX::Types::MooseLike::Base qw/Int Str Bool ArrayRef/;
+use Getopt::Long qw/:config no_ignore_case/;
+use File::Spec;
 use Config::Any;
 use File::HomeDir;
 use List::AllUtils qw( any none shuffle );
-use namespace::autoclean;
 
-with qw/
-    MouseX::ConfigFromFile
-    MouseX::Getopt
-/;
-
-# attributes for password generation
-has 'lowercase' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 'a'..'z' ] },
-);
-
-has 'uppercase' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ 'A'..'Z' ] },
-);
-
-has 'numerical' => (
-    is => 'rw', isa => 'ArrayRef[Str]', default => sub { [ '0' .. '9' ] },
-);
-
-has 'unreadable' => (
+has uppercase => (
     is      => 'ro',
-    isa     => 'ArrayRef[Str]',
+    isa     => ArrayRef,
+    default => sub { [ 'A' .. 'Z' ] },
+);
+
+has lowercase => (
+    is      => 'ro',
+    isa     => ArrayRef,
+    default => sub { [ 'a' .. 'z' ] },
+);
+
+has numerical => (
+    is      => 'ro',
+    isa     => ArrayRef,
+    default => sub { [ '0' .. '9' ] },
+);
+
+has unreadable => (
+    is      => 'ro',
+    isa     => ArrayRef,
     default => sub { [ split //sm, q{oO0l1I} ] },
 );
 
-## no critic (RequireInterpolationOfMetachars)
-
-has 'specials' => (
+has specials => (
     is      => 'ro',
-    isa     => 'ArrayRef[Str]',
+    isa     => ArrayRef,
     default => sub { [ split //sm, q{!@#$%^&*()} ] },
 );
 
-## use critic
-
-has 'number' => (
-    is          => 'ro',
-    isa         => 'Int',
-    default     => 1,
-    traits      => ['Getopt'],
-    cmd_aliases => 'n',
+has number => (
+    is      => 'ro',
+    isa     => Bool,
+    default => sub {1},
 );
 
-has 'readable' => (
-    is          => 'ro',
-    isa         => 'Bool',
-    default     => 1,
-    traits      => ['Getopt'],
-    cmd_aliases => 'r',
+has readable => (
+    is      => 'ro',
+    isa     => Bool,
+    default => sub {1},
 );
 
-has 'verify' => (
-    is          => 'ro',
-    isa         => 'Bool',
-    default     => 1,
-    traits      => ['Getopt'],
-    cmd_aliases => 'v',
+has verify => (
+    is      => 'ro',
+    isa     => Bool,
+    default => sub {1},
 );
 
-has 'length' => (
-    is          => 'ro',
-    isa         => 'Int',
-    traits      => ['Getopt'],
-    cmd_aliases => 'l',
+has length => (
+    is  => 'ro',
+    isa => Int,
 );
 
-has 'minlength' => (
-    is          => 'rw',
-    isa         => 'Int',
-    default     => 8,
-    traits      => ['Getopt'],
-    cmd_aliases => 'm',
+has minlength => (
+    is      => 'rw',
+    isa     => Int,
+    default => sub {8},
 );
 
-has 'maxlength' => (
-    is          => 'rw',
-    isa         => 'Int',
-    default     => 10,
-    traits      => ['Getopt'],
-    cmd_aliases => 'x',
+has maxlength => (
+    is      => 'rw',
+    isa     => Int,
+    default => sub {10},
 );
 
-has '+configfile' => (
-    isa     => 'Maybe[MouseX::Types::Path::Class::File]',
+has configfile => (
+    is      => 'ro',
+    isa     => Str,
     default => sub {
+        # find configfile location
         my @files = (
-            file( File::HomeDir->my_home, '.genpass.yaml' ),
+            File::Spec->catfile( File::HomeDir->my_home, '.genpass.yaml' ),
             '/etc/genpass.yaml',
         );
 
         foreach my $file (@files) {
-            -e $file && -r $file and return file($file);
+            if ( -e $file && -r $file ) {
+                return $file;
+            }
         }
-
-        return;
     },
 );
+
+sub parse_opts {
+    my $class = shift;
+    my %opts  = ();
+
+    GetOptions(
+        'lowercase=s@'  => \$opts{'lowercase'},
+        'uppercase=s@'  => \$opts{'uppercase'},
+        'numerical=i@'  => \$opts{'numerical'},
+        'unreadable=s@' => \$opts{'unreadable'},
+        'specials=s@'   => \$opts{'specials'},
+        'n|number=i'    => \$opts{'number'},
+        'r|readable!'   => \$opts{'readable'},
+        'v|verify!'     => \$opts{'verify'},
+        'l|length=i'    => \$opts{'length'},
+        'm|minlength=i' => \$opts{'minlength'},
+        'x|maxlength=i' => \$opts{'maxlength'},
+    ) or croak 'Can\'t get options.';
+
+    # remove undefined keys
+    foreach my $key ( keys %opts ) {
+        defined $opts{$key} or delete $opts{$key};
+    }
+
+    return %opts;
+}
+
+sub new_with_options {
+    my $class = shift;
+    my %opts  = $class->parse_opts;
+    my $self  = $class->new( %opts, @_ );
+
+    return $self;
+}
 
 sub get_config_from_file {
     my ($class, $file) = @_;
@@ -250,8 +271,6 @@ _DIE_MSG
     return wantarray ? @passwords : \@passwords;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Mouse;
 
 1;
 
@@ -295,6 +314,22 @@ B<genpass>.
 =head2 new
 
 Creates a new instance. It gets a lot of options.
+
+=head2 new_with_options
+
+Creates a new instance while reading the command line parameters.
+
+=head2 parse_opts
+
+Parses the command line options.
+
+=head2 configfile
+
+An attribute with a default value of a subroutine that tries to find the
+configuration file. It checks for a C<.genpass.yaml> in your home directory
+(using L<File::HomeDir>), and then for C</etc/genpass.yaml>.
+
+If one is available, that's what it uses. Otherwise nothing.
 
 =head3 flags
 
