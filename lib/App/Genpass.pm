@@ -42,7 +42,7 @@ has specials => (
 
 has number => (
     is      => 'ro',
-    isa     => Bool,
+    isa     => Int,
     default => sub {1},
 );
 
