@@ -1,5 +1,9 @@
 Revision history for App-Genpass
 
+2.31    26.06.12
+        * number was accidentally a Bool instead of Int.
+          (nice catch, Jonathan Swartz! *COUGH*USETHECHI*COUGH*)
+
 2.30    26.03.12
         - Move from Mouse to Moo - MUCH FASTER!
 
