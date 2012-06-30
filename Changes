@@ -1,5 +1,9 @@
 Revision history for App-Genpass
 
+2.32    01.07.12
+        * RT #77652: Depend directly on MooX::Types::MooseLike.
+          (nice catch, Brad Bowman!)
+
 2.31    26.06.12
         * number was accidentally a Bool instead of Int.
           (nice catch, Jonathan Swartz! *COUGH*USETHECHI*COUGH*)
