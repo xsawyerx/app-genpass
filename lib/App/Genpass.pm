@@ -90,6 +90,8 @@ has configfile => (
                 return $file;
             }
         }
+
+        return;
     },
 );
 
