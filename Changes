@@ -1,5 +1,11 @@
 Revision history for App-Genpass
 
+2.33    20.11.12
+        * Reinstate configuration reading which was removed with the move
+          to Moo.
+        * RT #81287: Update docs to reflect Mouse no longer used.
+          (Props to zaxon)
+
 2.32    01.07.12
         * RT #77652: Depend directly on MooX::Types::MooseLike.
           (nice catch, Brad Bowman!)
