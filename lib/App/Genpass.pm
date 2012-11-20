@@ -327,11 +327,13 @@ Parses the command line options.
 
 =head2 configfile
 
-An attribute with a default value of a subroutine that tries to find the
-configuration file. It checks for a C<.genpass.yaml> in your home directory
-(using L<File::HomeDir>), and then for C</etc/genpass.yaml>.
+An attribute defining the configuration file that will be used. If one is not
+provided, it tries to find one on its own. It checks for a C<.genpass.yaml> in
+your home directory (using L<File::HomeDir>), and then for C</etc/genpass.yaml>.
 
 If one is available, that's what it uses. Otherwise nothing.
+
+You must use the C<new_with_options> method described above for this.
 
 =head3 flags
 
@@ -474,20 +476,13 @@ always return a list of the passwords, even if it's a single password.
 
 Reads the configuration file using L<Config::Any>.
 
-Shamelessly lifted from L<MooseX::SimpleConfig> because there is no
-L<MouseX::SimpleConfig>.
+Shamelessly lifted from L<MooseX::SimpleConfig>.
 
 =head1 AUTHOR
 
 Sawyer X, C<< <xsawyerx at cpan.org> >>
 
 =head1 DEPENDENCIES
-
-L<Mouse>
-
-L<MouseX::Getopt>
-
-L<MouseX::ConfigFromFile>
 
 L<Config::Any>
 
