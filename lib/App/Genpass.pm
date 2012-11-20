@@ -75,31 +75,12 @@ has maxlength => (
     default => sub {10},
 );
 
-has configfile => (
-    is      => 'ro',
-    isa     => Str,
-    default => sub {
-        # find configfile location
-        my @files = (
-            File::Spec->catfile( File::HomeDir->my_home, '.genpass.yaml' ),
-            '/etc/genpass.yaml',
-        );
-
-        foreach my $file (@files) {
-            if ( -e $file && -r $file ) {
-                return $file;
-            }
-        }
-
-        return;
-    },
-);
-
 sub parse_opts {
     my $class = shift;
     my %opts  = ();
 
     GetOptions(
+        'configfile=s'  => \$opts{'configfile'},
         'lowercase=s@'  => \$opts{'lowercase'},
         'uppercase=s@'  => \$opts{'uppercase'},
         'numerical=i@'  => \$opts{'numerical'},
@@ -111,7 +92,7 @@ sub parse_opts {
         'l|length=i'    => \$opts{'length'},
         'm|minlength=i' => \$opts{'minlength'},
         'x|maxlength=i' => \$opts{'maxlength'},
-    ) or croak 'Can\'t get options.';
+    ) or croak q{Can't get options.};
 
     # remove undefined keys
     foreach my $key ( keys %opts ) {
@@ -122,9 +103,30 @@ sub parse_opts {
 }
 
 sub new_with_options {
-    my $class = shift;
-    my %opts  = $class->parse_opts;
-    my $self  = $class->new( %opts, @_ );
+    my $class   = shift;
+    my %opts    = $class->parse_opts;
+    my @configs = (
+        File::Spec->catfile( File::HomeDir->my_home, '.genpass.yaml' ),
+        '/etc/genpass.yaml',
+    );
+
+    if ( ! exists $opts{'configfile'} ) {
+        foreach my $file (@configs) {
+            if ( -e $file && -r $file ) {
+                $opts{'configfile'} = $file;
+                last;
+            }
+        }
+    }
+
+    if ( exists $opts{'configfile'} ) {
+        %opts = (
+            %opts,
+            %{ $class->get_config_from_file( $opts{'configfile'} ) },
+        );
+    }
+
+    my $self = $class->new( %opts, @_ );
 
     return $self;
 }
