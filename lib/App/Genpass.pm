@@ -486,15 +486,21 @@ Sawyer X, C<< <xsawyerx at cpan.org> >>
 
 =head1 DEPENDENCIES
 
+L<Carp>
+
+L<Moo>
+
+L<MooX::Types::MooseLike>
+
+L<Getopt::Long>
+
+L<File::Spec>
+
 L<Config::Any>
-
-L<Path::Class>
-
-L<List::AllUtils>
 
 L<File::HomeDir>
 
-L<namespace::autoclean>
+L<List::AllUtils>
 
 =head1 BUGS AND LIMITATIONS
 
