@@ -3,6 +3,7 @@ package App::Genpass;
 
 use Carp;
 use Moo;
+use Sub::Quote 'quote_sub';
 use MooX::Types::MooseLike::Base qw/Int Str Bool ArrayRef/;
 use Getopt::Long qw/:config no_ignore_case/;
 use File::Spec;
@@ -13,49 +14,49 @@ use List::AllUtils qw( any none shuffle );
 has uppercase => (
     is      => 'ro',
     isa     => ArrayRef,
-    default => sub { [ 'A' .. 'Z' ] },
+    default => quote_sub( q{ [ 'A' .. 'Z' ] } ),
 );
 
 has lowercase => (
     is      => 'ro',
     isa     => ArrayRef,
-    default => sub { [ 'a' .. 'z' ] },
+    default => quote_sub( q{ [ 'a' .. 'z' ] } ),
 );
 
 has numerical => (
     is      => 'ro',
     isa     => ArrayRef,
-    default => sub { [ '0' .. '9' ] },
+    default => quote_sub( q{ [ '0' .. '9' ] } ),
 );
 
 has unreadable => (
     is      => 'ro',
     isa     => ArrayRef,
-    default => sub { [ split //sm, q{oO0l1I} ] },
+    default => quote_sub( q{ [ split //sm, q{oO0l1I} ] } ),
 );
 
 has specials => (
     is      => 'ro',
     isa     => ArrayRef,
-    default => sub { [ split //sm, q{!@#$%^&*()} ] },
+    default => quote_sub( q{ [ split //sm, q{!@#$%^&*()} ] } ),
 );
 
 has number => (
     is      => 'ro',
     isa     => Int,
-    default => sub {1},
+    default => quote_sub( q{1} ),
 );
 
 has readable => (
     is      => 'ro',
     isa     => Bool,
-    default => sub {1},
+    default => quote_sub( q{1} ),
 );
 
 has verify => (
     is      => 'ro',
     isa     => Bool,
-    default => sub {1},
+    default => quote_sub( q{1} ),
 );
 
 has length => (
@@ -66,13 +67,13 @@ has length => (
 has minlength => (
     is      => 'rw',
     isa     => Int,
-    default => sub {8},
+    default => quote_sub( q{8} ),
 );
 
 has maxlength => (
     is      => 'rw',
     isa     => Int,
-    default => sub {10},
+    default => quote_sub( q{10} ),
 );
 
 sub parse_opts {
