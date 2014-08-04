@@ -1,5 +1,8 @@
 Revision history for App-Genpass
 
+2.34    04.08.14
+        * GH #3: When provided some empty types, it would loop forever.
+
 2.33    20.11.12
         * Reinstate configuration reading which was removed with the move
           to Moo.
