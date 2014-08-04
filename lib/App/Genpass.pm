@@ -247,10 +247,12 @@ _DIE_MSG
             # for verifying, we just check that it has small capital letters
             # if that doesn't work, we keep asking it to get a new random one
             # the check if it has large capital letters and so on
-            if ( $verify && $char_type ) {
+            if ( $verify && $char_type && @{ $self->$char_type } ) {
                 # verify $char_type
-                while ( ! any { $_ eq $char } @{ $self->$char_type } ) {
-                    $char = $chars[ int rand @chars ];
+                if ( @{ $self->$char_type } ) {
+                    while ( ! any { $_ eq $char } @{ $self->$char_type } ) {
+                        $char = $chars[ int rand @chars ];
+                    }
                 }
 
                 $char_type =
