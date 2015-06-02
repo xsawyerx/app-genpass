@@ -444,8 +444,8 @@ After all the characters are set, unreadable characters will be removed from all
 sets.
 
 Thus, unreadable characters override all other sets. You can make unreadable
-characters not count by using the C<<readable => 0>> option, described by the
-I<readable> flag above.
+characters not count by using the C<< readable => 0 >> option, described by
+the I<readable> flag above.
 
 =item specials
 
@@ -471,14 +471,14 @@ to generate, defined by the attribute B<number> explained above.
 
 This method tries to be tricky and DWIM (or rather, DWYM). That is, if you
 request it to generate only one password and use scalar context
-(C<<my $p = $gp->generate(1)>>), it will return a single password.
+(C<< my $p = $gp->generate(1) >>), it will return a single password.
 
 However, if you try to generate multiple passwords and use scalar context
-(C<<my $p = $gp->generate(30)>>), it will return an array reference for the
+(C<< my $p = $gp->generate(30) >>), it will return an array reference for the
 passwords.
 
-Generating passwords with list context (C<<my @p = $gp->generate(...)>>) will
-always return a list of the passwords, even if it's a single password.
+Generating passwords with list context (C<< my @p = $gp->generate(...) >>)
+will always return a list of the passwords, even if it's a single password.
 
 =head2 get_config_from_file
 
