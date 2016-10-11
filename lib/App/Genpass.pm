@@ -10,6 +10,9 @@ use File::Spec;
 use Config::Any;
 use File::HomeDir;
 use List::AllUtils qw( any none shuffle );
+use Math::Random::Secure;
+
+sub _rand ($) { Math::Random::Secure::rand(shift) }
 
 has uppercase => (
     is      => 'ro',
@@ -232,7 +235,7 @@ _DIE_MSG
     }
 
     $length = $self->length
-            || $self->minlength + int(rand(abs($self->maxlength - $self->minlength) + 1));
+            || $self->minlength + int(_rand(abs($self->maxlength - $self->minlength) + 1));
 
     $number ||= $self->number;
 
@@ -243,7 +246,7 @@ _DIE_MSG
 
         # generating the password
         while ( $length > length $password ) {
-            my $char = $chars[ int rand @chars ];
+            my $char = $chars[ int _rand @chars ];
 
             # for verifying, we just check that it has small capital letters
             # if that doesn't work, we keep asking it to get a new random one
@@ -252,7 +255,7 @@ _DIE_MSG
                 # verify $char_type
                 if ( @{ $self->$char_type } ) {
                     while ( ! any { $_ eq $char } @{ $self->$char_type } ) {
-                        $char = $chars[ int rand @chars ];
+                        $char = $chars[ int _rand @chars ];
                     }
                 }
 

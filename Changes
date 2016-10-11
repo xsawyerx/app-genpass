@@ -1,5 +1,8 @@
 Revision history for App-Genpass
 
+        * Create passwords in a more secure fashion (ie not simply rand())
+          (Arthur Axel fREW Schmidt)
+
 2.34    04.08.14
         * GH #3: When provided some empty types, it would loop forever.
 
