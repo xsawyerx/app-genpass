@@ -1,5 +1,7 @@
 Revision history for App-Genpass
 
+2.400   12.10.16
+
         * Cleanup Pod. (Brian Manning)
         * Create passwords in a more secure fashion (ie not simply rand()).
           (Arthur Axel fREW Schmidt)
