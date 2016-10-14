@@ -1,5 +1,8 @@
 Revision history for App-Genpass
 
+2.401   14.10.16
+        * Provide a META.json file.
+
 2.400   12.10.16
 
         * Cleanup Pod. (Brian Manning)
